@@ -37,6 +37,12 @@ module.exports = {
 			lg: ['18px', '26px'],
 			xl: ['20px', '29px'],
 			'2xl': ['24px', '35px']
+		},
+		container: {
+			center: true,
+			padding: {
+				DEFAULT: '24px'
+			}
 		}
 	},
 	plugins: []

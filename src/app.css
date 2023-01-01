@@ -8,25 +8,6 @@
 	body {
 		@apply bg-gray-100;
 	}
-	h1 {
-		@apply text-2xl font-bold;
-		letter-spacing: -0.33px;
-	}
-	h2 {
-		@apply text-xl font-bold;
-		letter-spacing: -0.25px;
-	}
-	h3 {
-		@apply text-lg font-bold;
-		letter-spacing: -0.25px;
-	}
-	h4 {
-		@apply text-sm font-bold;
-		letter-spacing: -0.2px;
-	}
-	p {
-		@apply text-base;
-	}
 	.body-1 {
 		@apply text-base;
 	}
