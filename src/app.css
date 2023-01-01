@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	body {
+		@apply bg-gray-100;
+	}
+	h1 {
+		@apply text-2xl font-bold;
+		letter-spacing: -0.33px;
+	}
+	h2 {
+		@apply text-xl font-bold;
+		letter-spacing: -0.25px;
+	}
+	h3 {
+		@apply text-lg font-bold;
+		letter-spacing: -0.25px;
+	}
+	h4 {
+		@apply text-sm font-bold;
+		letter-spacing: -0.2px;
+	}
+	p {
+		@apply text-base;
+	}
+	.body-1 {
+		@apply text-base;
+	}
+	.body-2 {
+		@apply text-sm;
+	}
+	.body-3 {
+		@apply text-xs;
+	}
+	.button {
+		@apply text-sm text-white font-bold;
+		padding: 16px 42px;
+		border-radius: 10px;
+	}
+}
