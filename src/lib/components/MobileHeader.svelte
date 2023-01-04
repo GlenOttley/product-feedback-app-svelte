@@ -1,12 +1,14 @@
 <script>
 	import iconHamburger from '$assets/shared/mobile/icon-hamburger.svg';
+	import iconClose from '$assets/shared/mobile/icon-close.svg';
 	import { onMount } from 'svelte';
 	import { horizontalSlide } from '$lib/utils/transitions';
 	import { fade } from 'svelte/transition';
+	import Filters from './Filters.svelte';
 
 	let menuOpen = true;
 
-	onMount(() => (menuOpen = false));
+	onMount(() => (menuOpen = true));
 
 	const defaults = {
 		classname: 'js'
@@ -22,13 +24,15 @@
 	}
 </script>
 
-<div class="bg-[url('src/lib/assets/suggestions/mobile/background-header.png')] bg-no-repeat">
-	<div class="container py-4 flex justify-between items-center">
+<div class="bg-[url('mobile/background-header.png')] bg-cover bg-no-repeat">
+	<div class="container flex items-center justify-between py-4">
 		<header>
 			<h1 class="text-sm text-white font-bold tracking-[-0.19px]">Frontend Mentor</h1>
-			<h2 class="text-xs text-white tracking-normal">Feedback Board</h2>
+			<h2 class="text-xs tracking-normal text-white">Feedback Board</h2>
 		</header>
-		<label for="toggle" class="cursor-pointer"><img src={iconHamburger} alt="menu" /></label>
+		<label for="toggle" class="cursor-pointer"
+			><img src={menuOpen ? iconClose : iconHamburger} alt="menu" /></label
+		>
 		<input id="toggle" type="checkbox" class="sr-only" bind:checked={menuOpen} use:enhance />
 
 		{#if menuOpen}
@@ -38,13 +42,9 @@
 			>
 				<div
 					transition:horizontalSlide={{ axis: 'x', duration: 800 }}
-					class="absolute bg-gray-100 w-[271px] right-0 h-screen"
+					class="absolute bg-gray-100 w-[271px] right-0 h-screen container py-6"
 				>
-					<ul id="navigation-drawer">
-						<li><a href="/">One</a></li>
-						<li><a href="/">Two</a></li>
-						<li><a href="/">Three</a></li>
-					</ul>
+					<Filters />
 				</div>
 			</nav>
 		{/if}
