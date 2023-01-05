@@ -1,26 +1,27 @@
 <script>
-	import iconHamburger from '$assets/shared/mobile/icon-hamburger.svg';
-	import iconClose from '$assets/shared/mobile/icon-close.svg';
-	import { onMount } from 'svelte';
-	import { horizontalSlide } from '$lib/utils/transitions';
-	import { fade } from 'svelte/transition';
-	import Filters from './Filters.svelte';
+	import iconHamburger from '$assets/shared/mobile/icon-hamburger.svg'
+	import iconClose from '$assets/shared/mobile/icon-close.svg'
+	import { onMount } from 'svelte'
+	import { horizontalSlide } from '$lib/utils/transitions'
+	import { fade } from 'svelte/transition'
+	import Filters from './Filters.svelte'
+	import Roadmap from './Roadmap.svelte'
 
-	let menuOpen = true;
+	let menuOpen = true
 
-	onMount(() => (menuOpen = true));
+	onMount(() => (menuOpen = false))
 
 	const defaults = {
 		classname: 'js'
-	};
+	}
 
 	/**
 	 * @param {HTMLInputElement} node
 	 */
 	function enhance(node, options = {}) {
-		const { classname } = { ...defaults, ...options };
+		const { classname } = { ...defaults, ...options }
 
-		node.classList.add(classname);
+		node.classList.add(classname)
 	}
 </script>
 
@@ -42,9 +43,10 @@
 			>
 				<div
 					transition:horizontalSlide={{ axis: 'x', duration: 800 }}
-					class="absolute bg-gray-100 w-[271px] right-0 h-screen container py-6"
+					class="absolute bg-gray-100 w-[271px] right-0 h-screen container py-6 flex flex-col gap-6"
 				>
 					<Filters />
+					<Roadmap />
 				</div>
 			</nav>
 		{/if}
