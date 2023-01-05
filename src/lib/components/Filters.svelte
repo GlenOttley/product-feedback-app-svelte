@@ -1,29 +1,37 @@
-<script>
+<script lang="ts">
+	import type { SubmitFunction } from '$app/forms'
+	import { enhance } from '$app/forms'
 	import { filters } from '$lib/stores'
+	import type { Category } from '$lib/types/ProductRequest'
 
-	function handleFilter({ target }) {
-		let activeFilter = target.href.split('?')[1]
-		let filterKey = activeFilter.split('=')[0]
-		let filterValue = activeFilter.split('=')[1]
+	const filterValues = ['all', 'UI', 'UX', 'enhancement', 'bug', 'feature']
 
-		filters.update((current) => {
-			current, (current[filterKey] = filterValue)
-			return current
-		})
+	const submitUpdateFilters: SubmitFunction = ({ action }) => {
+		const category = action.searchParams.get('category')
+
+		if (category) {
+			filters.update((current) => {
+				current.category = category as Category
+				return current
+			})
+		}
 	}
 </script>
 
-<fieldset class="container flex flex-wrap py-6 bg-white">
-	<a
-		on:click|preventDefault={handleFilter}
-		href="/?category=all"
-		class="rounded-[10px] leading-none font-semibold bg-gray-200 py-2 px-4 text-xs text-blue-400"
-		>All</a
+<aside class="container py-6 bg-white rounded-[10px]">
+	<form
+		method="post"
+		use:enhance={submitUpdateFilters}
+		class="flex flex-wrap gap-x-2 gap-y-[14px] "
 	>
-	<a
-		on:click|preventDefault={handleFilter}
-		href="/?category=enhancement"
-		class="rounded-[10px] leading-none font-semibold bg-gray-200 py-2 px-4 text-xs text-blue-400"
-		>Enhancement</a
-	>
-</fieldset>
+		{#each filterValues as filterValue}
+			<button
+				formaction="/?/setFilters&category={filterValue}"
+				class="rounded-[10px] leading-none font-semibold  py-2 px-4 text-xs  capitalize 
+        {$filters.category === filterValue
+					? 'bg-blue-400 text-white'
+					: 'bg-gray-200 text-blue-400'}">{filterValue}</button
+			>
+		{/each}
+	</form>
+</aside>

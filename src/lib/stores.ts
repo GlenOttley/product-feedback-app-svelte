@@ -1,17 +1,18 @@
 import type ProductRequest from '$types/ProductRequest'
 import type { Category } from '$types/ProductRequest'
+import type { Status } from '$types/ProductRequest'
 import { derived, writable } from 'svelte/store'
 import data from '$lib/data.json'
 
 export interface Filters {
-	category?: Category | 'all' | '' | null
-	status?: string
+	category?: Category | ''
+	status?: Status | ''
 }
 
-export const productRequests = writable(data.productRequests)
+export const productRequests = writable<ProductRequest[]>(data.productRequests as ProductRequest[])
 
 export const filters = writable<Filters>({
-	category: '',
+	category: 'all',
 	status: ''
 })
 

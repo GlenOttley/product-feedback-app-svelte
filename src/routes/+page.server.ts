@@ -1,23 +1,20 @@
-import type { PageServerLoad } from './$types'
-import { filteredProductRequests, filters } from '$lib/stores'
-import type { Filters } from '$lib/stores'
+// import { redirect } from '@sveltejs/kit'
+import type { Actions } from './$types'
+import { filters } from '$lib/stores'
+import type { Category } from '$lib/types/ProductRequest'
 
-export const load = (({ fetch, url }) => {
-	const fetchProductRequests = async () => {
+// export const csr = false
+// export const ssr = false
+
+export const actions: Actions = {
+	setFilters: async ({ url }) => {
 		const category = url.searchParams.get('category')
-		const status = url.searchParams.get('status')
 
-		const res = await fetch(
-			!category || category === 'all'
-				? '/api/product-requests'
-				: `/api/product-requests?filter=${category}`
-		)
-		const data = await res.json()
-
-		return data.productRequests
+		if (category) {
+			filters.update((current) => {
+				current.category = category as Category
+				return current
+			})
+		}
 	}
-
-	return {
-		productRequests: fetchProductRequests()
-	}
-}) satisfies PageServerLoad
+}

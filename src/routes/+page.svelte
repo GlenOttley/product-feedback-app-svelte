@@ -1,18 +1,12 @@
 <script lang="ts">
 	import MobileHeader from '$components/MobileHeader.svelte'
-	import type ProductRequest from '$types/ProductRequest'
-
-	export let data
-
-	const productRequests: ProductRequest[] = data
+	import SortBar from '$components/SortBar.svelte'
+	import { filteredProductRequests } from '$lib/stores'
 </script>
 
 <MobileHeader />
+<SortBar />
 
-<!-- {#each $filteredProductRequests as productRequest}
-	<h2>{productRequest.title}</h2>
-{/each} -->
-
-{#each productRequests as productRequest}
+{#each $filteredProductRequests as productRequest}
 	<h2>{productRequest.title}</h2>
 {/each}

@@ -1,7 +1,7 @@
 import type Comment from './Comment'
 
-export type Category = 'enhancement' | 'UI' | 'UX' | 'bug' | 'feature' | string
-export type Status = 'suggestion' | 'planned' | 'in-progress'
+export type Category = 'all' | 'UI' | 'UX' | 'enhancement' | 'bug' | 'feature'
+export type Status = 'suggestion' | 'planned' | 'in-progress' | 'live'
 
 interface ProductRequest {
 	id: number
