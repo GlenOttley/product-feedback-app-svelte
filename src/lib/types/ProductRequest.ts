@@ -7,9 +7,10 @@ interface ProductRequest {
 	id: number
 	title: string
 	category: Category
+	upvotes: number
 	status: Status
 	description: string
-	comments?: Comment[]
+	comments: Comment[]
 }
 
 export default ProductRequest

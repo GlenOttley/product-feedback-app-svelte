@@ -7,6 +7,8 @@
 <MobileHeader />
 <SortBar />
 
-{#each $filteredProductRequests as productRequest}
-	<h2>{productRequest.title}</h2>
-{/each}
+<div class="container">
+	{#each $filteredProductRequests as productRequest}
+		<h2>{productRequest.title}</h2>
+	{/each}
+</div>

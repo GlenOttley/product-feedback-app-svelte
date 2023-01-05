@@ -27,7 +27,7 @@
 		{#each filterValues as filterValue}
 			<button
 				formaction="/?/setFilters&category={filterValue}"
-				class="rounded-[10px] leading-none font-semibold  py-2 px-4 text-xs  capitalize 
+				class="rounded-[10px] leading-none font-semibold  py-2 px-4 text-xs capitalize 
         {$filters.category === filterValue
 					? 'bg-blue-400 text-white'
 					: 'bg-gray-200 text-blue-400'}">{filterValue}</button

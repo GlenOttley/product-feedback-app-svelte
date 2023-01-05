@@ -28,6 +28,9 @@ module.exports = {
 			},
 			fontFamily: {
 				sans: ['Jost', 'sans-serif']
+			},
+			screens: {
+				xs: '375px'
 			}
 		},
 		fontSize: {
@@ -46,4 +49,4 @@ module.exports = {
 		}
 	},
 	plugins: []
-};
+}

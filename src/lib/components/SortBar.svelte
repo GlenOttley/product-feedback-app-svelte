@@ -1,19 +1,32 @@
 <script>
+	import { browser } from '$app/environment'
+	import SelectSortBrowser from '$components/SelectSortBrowser.svelte'
+	import SelectSortServer from '$components/SelectSortServer.svelte'
+	import { filters } from '$lib/stores'
+
+	let sortOptions = [
+		{ label: 'most upvotes', value: 'mostUpvotes', selected: $filters.sort === 'mostUpvotes' },
+		{ label: 'least upvotes', value: 'leastUpvotes', selected: $filters.sort === 'leastUpvotes' },
+		{ label: 'most comments', value: 'mostComments', selected: $filters.sort === 'mostComments' },
+		{
+			label: 'least comments',
+			value: 'leastComments',
+			selected: $filters.sort === 'leastComments'
+		}
+	]
 </script>
 
 <div class="bg-gray-600">
-	<div class="container flex items-center justify-between py-4">
-		<form action="/action_page.php">
-			<label for="cars">Choose a car:</label>
-			<select name="cars" id="cars">
-				<option value="volvo">Volvo</option>
-				<option value="saab">Saab</option>
-				<option value="opel">Opel</option>
-				<option value="audi">Audi</option>
-			</select>
-			<br /><br />
-			<input type="submit" value="Submit" />
-		</form>
-		<a href="/add-feedback" class="bg-purple-200 button">+ Add Feedback</a>
+	<div class="container flex justify-between py-2">
+		{#if browser}
+			<SelectSortBrowser {sortOptions} />
+		{:else}
+			<SelectSortServer {sortOptions} />
+		{/if}
+
+		<a
+			href="/add-feedback"
+			class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap">New</a
+		>
 	</div>
 </div>

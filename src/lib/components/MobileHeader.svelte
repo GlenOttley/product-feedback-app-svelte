@@ -7,7 +7,7 @@
 	import Filters from './Filters.svelte'
 	import Roadmap from './Roadmap.svelte'
 
-	let menuOpen = true
+	let menuOpen = false
 
 	onMount(() => (menuOpen = false))
 
@@ -39,7 +39,7 @@
 		{#if menuOpen}
 			<nav
 				transition:fade
-				class="nav fixed top-[72px] right-0 w-full h-full bg-black bg-opacity-60"
+				class="nav fixed top-[72px] right-0 w-full h-full bg-black bg-opacity-60 z-50"
 			>
 				<div
 					transition:horizontalSlide={{ axis: 'x', duration: 800 }}
