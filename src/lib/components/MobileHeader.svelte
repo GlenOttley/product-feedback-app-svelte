@@ -25,7 +25,7 @@
 	}
 </script>
 
-<div class="bg-[url('mobile/background-header.png')] bg-cover bg-no-repeat">
+<div class="bg-[url('/mobile/background-header.png')] bg-cover bg-no-repeat">
 	<div class="container flex items-center justify-between py-4">
 		<header>
 			<h1 class="text-sm text-white font-bold tracking-[-0.19px]">Frontend Mentor</h1>
