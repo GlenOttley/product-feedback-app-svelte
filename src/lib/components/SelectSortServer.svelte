@@ -4,9 +4,9 @@
 </script>
 
 <form method="post" action="?/setSort" class="flex">
-	<label for="sort" class="text-sm text-gray-300 whitespace-nowrap self-center">Sort:&nbsp;</label>
+	<label for="sort" class="self-center text-sm text-gray-300 whitespace-nowrap">Sort:&nbsp;</label>
 
-	<select name="sort" id="sort" class="px-4 bg-gray-100 text-black capitalize rounded-l-[10px]">
+	<select name="sort" id="sort" class="pl-4 bg-gray-100 text-black capitalize rounded-l-[10px]">
 		{#each sortOptions as sortOption}
 			<option value={sortOption.value} selected={sortOption.selected}>{sortOption.label}</option>
 		{/each}
@@ -14,7 +14,7 @@
 
 	<button
 		type="submit"
-		class="px-4 py-2 rounded-l-none text-xs leading-6  bg-blue-400 button whitespace-nowrap"
+		class="px-4 py-2 text-xs bg-blue-400 rounded-l-none leading-6 button whitespace-nowrap"
 		><img src={searchIcon} alt="" class="w-3 min-w-[12px]" /></button
 	>
 </form>

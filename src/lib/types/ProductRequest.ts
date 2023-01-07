@@ -11,6 +11,7 @@ interface ProductRequest {
 	status: Status
 	description: string
 	comments: Comment[]
+	upvoted?: boolean
 }
 
 export default ProductRequest

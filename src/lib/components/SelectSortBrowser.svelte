@@ -19,7 +19,6 @@
 		on:change={updateSort}
 		bind:value={selectedOption}
 		class="dropdown"
-		aria-labelled-by="sort-label"
 		items={sortOptions}
 		clearable={false}
 		searchable={false}

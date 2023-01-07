@@ -3,6 +3,7 @@ import type { Category } from '$types/ProductRequest'
 import type { Status } from '$types/ProductRequest'
 import { derived, writable } from 'svelte/store'
 import data from '$lib/data.json'
+import { browser } from '$app/environment'
 
 export type Sort = 'mostUpvotes' | 'leastUpvotes' | 'mostComments' | 'leastComments'
 
@@ -12,7 +13,21 @@ export interface Filters {
 	sort: Sort
 }
 
-export const productRequests = writable<ProductRequest[]>(data.productRequests as ProductRequest[])
+const localProductRequests = browser ? window.localStorage.getItem('productRequests') : null
+
+// export const productRequests = writable<ProductRequest[]>(data.productRequests as ProductRequest[])
+
+export const productRequests = writable<ProductRequest[]>(
+	localProductRequests
+		? (JSON.parse(localProductRequests) as ProductRequest[])
+		: (data.productRequests as ProductRequest[])
+)
+
+productRequests.subscribe((value) => {
+	if (browser) {
+		window.localStorage.setItem('productRequests', JSON.stringify(value))
+	}
+})
 
 export const filters = writable<Filters>({
 	category: 'all',
@@ -21,11 +36,11 @@ export const filters = writable<Filters>({
 })
 
 function compareUpvotes(a: ProductRequest, b: ProductRequest) {
-	return a.upvotes - b.upvotes
+	return b.upvotes - a.upvotes
 }
 
 function compareComments(a: ProductRequest, b: ProductRequest) {
-	return a.comments.length - b.comments.length
+	return b.comments.length - a.comments.length
 }
 
 export const filteredProductRequests = derived(

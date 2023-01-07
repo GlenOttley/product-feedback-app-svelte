@@ -10,7 +10,8 @@
 			"$lib/*": ["src/lib/*"],
 			"$components/*": ["src/lib/components/*"],
 			"$assets/*": ["src/lib/assets/*"],
-			"$types/*": ["src/lib/types/*"]
+			"$types/*": ["src/lib/types/*"],
+			"$root/*": ["./*"]
 		},
 		"resolveJsonModule": true,
 		"skipLibCheck": true,

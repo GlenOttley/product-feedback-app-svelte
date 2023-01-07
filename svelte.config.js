@@ -14,7 +14,8 @@ const config = {
 			// these are the aliases and paths to them
 			$components: path.resolve('./src/lib/components'),
 			$assets: path.resolve('./src/lib/assets'),
-			$types: path.resolve('./src/lib/types')
+			$types: path.resolve('./src/lib/types'),
+			$root: path.resolve('./')
 		}
 	}
 }
