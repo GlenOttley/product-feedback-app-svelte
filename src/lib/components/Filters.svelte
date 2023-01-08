@@ -18,7 +18,7 @@
 	}
 </script>
 
-<aside class="container py-6 bg-white rounded-[10px] flex items-center">
+<aside class="container py-6 bg-white rounded-[10px]">
 	<form method="post" use:enhance={submitUpdateFilters} class="flex flex-wrap gap-x-2 gap-y-[14px]">
 		{#each filterValues as filterValue}
 			<button

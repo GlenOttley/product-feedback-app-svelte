@@ -32,10 +32,13 @@
 	}
 </script>
 
-<article class="bg-white rounded-[10px] p-6 md:py-7 md:px-8 group">
+<article class="bg-white rounded-[10px] p-6 md:py-7 md:px-8">
 	<div class="grid">
 		<div class="mb-2 title md:mb-1">
-			<h3 class="text-xs font-bold text-gray-500 md:text-lg group-hover:text-blue-400">{title}</h3>
+			<a
+				href="/product-request/{id}"
+				class="text-xs font-bold text-gray-500 md:text-lg hover:text-blue-400">{title}</a
+			>
 		</div>
 		<div class="mb-2 description md:mb-3">
 			<p class="text-xs text-gray-400 md:text-base">{description}</p>
@@ -50,7 +53,7 @@
 		<div class="upvotes">
 			<form method="post" use:enhance={submitUpvoteRequest}>
 				<button
-					class={`py-2 px-4 text-xs font-semibold rounded-[10px] gap-2 flex items-center max-w-fit md:flex-col md:px-2 md:py-3 hover:bg-blue-100 min-w-[40px] 
+					class={`z-10 py-2 px-4 text-xs font-semibold rounded-[10px] gap-2 flex items-center max-w-fit md:flex-col md:px-2 md:py-3 hover:bg-blue-100 min-w-[40px] 
           ${upvoted ? 'bg-blue-400 text-white' : 'bg-gray-200 text-gray-500'}`}
 					aria-label={upvoted ? 'Remove your upvote from this request' : 'Upvote this request'}
 					formaction="/?/upvote&id={id}"
