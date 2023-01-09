@@ -4,7 +4,7 @@ export type Category = 'all' | 'UI' | 'UX' | 'enhancement' | 'bug' | 'feature'
 export type Status = 'suggestion' | 'planned' | 'in-progress' | 'live'
 
 interface ProductRequest {
-	id: number
+	id: string
 	title: string
 	category: Category
 	upvotes: number

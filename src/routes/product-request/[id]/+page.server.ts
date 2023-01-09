@@ -1,6 +1,7 @@
 import type { Actions } from './$types'
 import { productRequests } from '$lib/stores'
 import type Reply from '$types/Reply'
+import { v4 as uuidv4 } from 'uuid'
 
 export const csr = false
 
@@ -12,6 +13,7 @@ export const actions: Actions = {
 		const content = data.get('content')
 
 		const newReply = {
+			id: uuidv4(),
 			content,
 			replyingTo,
 			user: {
@@ -22,11 +24,9 @@ export const actions: Actions = {
 		} as Reply
 
 		productRequests.update((current) => {
-			const requestIndex = current.findIndex(
-				(productRequest) => productRequest.id === Number(params.id)
-			)
+			const requestIndex = current.findIndex((productRequest) => productRequest.id === params.id)
 			const commentIndex = current[requestIndex].comments.findIndex(
-				(comment) => comment.id === Number(commentId)
+				(comment) => comment.id === commentId
 			)
 			if (current[requestIndex].comments[commentIndex].replies) {
 				current[requestIndex].comments[commentIndex].replies?.push(newReply)
