@@ -3,6 +3,7 @@
 	import ProductRequestOverview from '$components/ProductRequestOverview.svelte'
 	import Comment from '$components/Comment.svelte'
 	import ArrowLeftIcon from '$assets/shared/icon-arrow-left.svg'
+
 	export let data: ProductRequest
 
 	const { comments, id } = data

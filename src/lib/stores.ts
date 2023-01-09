@@ -15,19 +15,19 @@ export interface Filters {
 
 const localProductRequests = browser ? window.localStorage.getItem('productRequests') : null
 
-// export const productRequests = writable<ProductRequest[]>(
-// 	localProductRequests
-// 		? (JSON.parse(localProductRequests) as ProductRequest[])
-// 		: (data.productRequests as ProductRequest[])
-// )
+export const productRequests = writable<ProductRequest[]>(
+	localProductRequests
+		? (JSON.parse(localProductRequests) as ProductRequest[])
+		: (data.productRequests as ProductRequest[])
+)
 
-export const productRequests = writable<ProductRequest[]>(data.productRequests as ProductRequest[])
+// export const productRequests = writable<ProductRequest[]>(data.productRequests as ProductRequest[])
 
-// productRequests.subscribe((value) => {
-// 	if (browser) {
-// 		window.localStorage.setItem('productRequests', JSON.stringify(value))
-// 	}
-// })
+productRequests.subscribe((value) => {
+	if (browser) {
+		window.localStorage.setItem('productRequests', JSON.stringify(value))
+	}
+})
 
 export const filters = writable<Filters>({
 	category: 'all',

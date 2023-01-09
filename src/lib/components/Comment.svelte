@@ -1,14 +1,16 @@
 <script lang="ts">
 	import type Comment from '$types/Comment'
-	import { page } from '$app/stores'
 	import { onMount } from 'svelte/internal'
+	import { enhance } from '$app/forms'
+	import { page } from '$app/stores'
+	import { postReply } from '$lib/actions'
 
 	export let comment: Comment
 	export let isLastComment: boolean = false
 	export let isReply: boolean
 	export let isLastReply: boolean
 	export let isFirstReply: boolean
-	export let parentCommentId: number
+	export let parentCommentId: string
 
 	let showReplyForm = false
 
@@ -46,8 +48,10 @@
 		class="sr-only peer/reply-toggle"
 		bind:checked={showReplyForm}
 	/>
+
 	<form
 		method="post"
+		use:enhance={postReply}
 		class="flex-col hidden gap-4 reply-form peer-checked/reply-toggle:flex md:flex-row md:items-start"
 	>
 		<textarea
@@ -58,12 +62,9 @@
 			class="bg-gray-200 rounded-[5px] py-4 px-6 placeholder:text-xs placeholder:text-[#8C92B3]
       text-gray-500 text-xs w-full"
 		/>
+		<input type="hidden" name="productRequestId" value={$page.params.id} />
 		<input type="hidden" name="commentId" value={parentCommentId} />
 		<input type="hidden" name="replyingTo" value={user.username} />
-		<!-- <button
-			formaction="?/postReply&comment={parentCommentId}&replyingTo={user.username}"
-			class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap">Post Reply</button
-		> -->
 		<button
 			formaction="?/postReply"
 			class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap">Post Reply</button

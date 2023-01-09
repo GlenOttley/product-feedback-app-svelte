@@ -12,7 +12,7 @@
 	let { title, description, status, upvotes, comments, id, upvoted } = productRequest
 
 	const submitUpvoteRequest: SubmitFunction = ({ action }) => {
-		const requestId = Number(action.searchParams.get('id'))
+		const requestId = action.searchParams.get('id')
 
 		if (requestId) {
 			productRequests.update((current) => {
