@@ -37,13 +37,11 @@
 		<p class="text-xs text-gray-400 md:text-[14px]">@{user.username}</p>
 	</div>
 
-	<label
-		for="reply-toggle--comment_{parentCommentId}--user_{user.username}--replyingTo_{replyingTo}"
-		class="cursor-pointer reply-link"
+	<label for="reply-toggle--comment_{id}" class="cursor-pointer reply-link"
 		><p class="text-xs font-semibold text-blue-400">Reply</p></label
 	>
 	<input
-		id="reply-toggle--comment_{parentCommentId}--user_{user.username}--replyingTo_{replyingTo}"
+		id="reply-toggle--comment_{id}"
 		type="checkbox"
 		class="sr-only peer/reply-toggle"
 		bind:checked={showReplyForm}
