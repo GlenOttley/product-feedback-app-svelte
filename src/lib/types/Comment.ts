@@ -6,6 +6,7 @@ interface Comment {
 	content: string
 	user: User
 	replies?: Reply[]
+	replyingTo?: string
 }
 
 export default Comment

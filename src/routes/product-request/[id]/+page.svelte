@@ -16,21 +16,30 @@
 	})
 </script>
 
-<div class="flex justify-between mb-6">
-	<a href="/" class="flex items-center gap-4 text-xs font-bold text-gray-400">
-		<img src={ArrowLeftIcon} alt="" />
-		Go Back
-	</a>
-	<a href="./{id}/edit" class="rounded-[10px] bg-blue-400 text-white text-xs font-bold py-2 px-4">
-		Edit Feedback</a
-	>
-</div>
-<div class="mb-6">
-	<ProductRequestOverview productRequest={data} />
-</div>
-<div class="bg-white rounded-[10px] container py-6">
-	<h3 class="text-lg font-bold text-gray-500">{commentsLength} Comments</h3>
-	{#each comments as comment}
-		<Comment {comment} />
-	{/each}
+<div class="container mt-6">
+	<div class="flex justify-between mb-6 ">
+		<a href="/" class="flex items-center gap-4 text-xs font-bold text-gray-400">
+			<img src={ArrowLeftIcon} alt="" />
+			Go Back
+		</a>
+		<a href="./{id}/edit" class="rounded-[10px] bg-blue-400 text-white text-xs font-bold py-2 px-4">
+			Edit Feedback</a
+		>
+	</div>
+	<div class="mb-6">
+		<ProductRequestOverview productRequest={data} />
+	</div>
+	<div class="bg-white rounded-[10px] container py-6 mb-6 md:px-8">
+		<h3 class="text-lg font-bold text-gray-500">{commentsLength} Comments</h3>
+		{#each comments as comment, index (comment.id)}
+			<Comment
+				{comment}
+				parentCommentId={comment.id}
+				isLastComment={index + 1 === comments.length}
+				isReply={false}
+				isLastReply={false}
+				isFirstReply={false}
+			/>
+		{/each}
+	</div>
 </div>

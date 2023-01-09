@@ -3,7 +3,7 @@ import { filters, productRequests } from '$lib/stores'
 import type { Sort } from '$lib/stores'
 import type { Category } from '$lib/types/ProductRequest'
 
-// export const csr = false
+export const csr = false
 // export const ssr = false
 
 export const actions: Actions = {
