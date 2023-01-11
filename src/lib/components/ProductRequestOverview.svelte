@@ -4,28 +4,19 @@
 	import arrowUpIcon from '$assets/shared/icon-arrow-up.svg'
 	import arrowUpIconWhite from '$assets/shared/icon-arrow-up-white.svg'
 	import commentsIcon from '$assets/shared/icon-comments.svg'
-	import { productRequests } from '$lib/stores'
 	import type ProductRequest from '$types/ProductRequest'
+	import { upvoteRequest } from '$lib/actions'
 
 	export let productRequest: ProductRequest
 
 	let { title, description, status, upvotes, comments, id, upvoted } = productRequest
 
-	const submitUpvoteRequest: SubmitFunction = ({ action }) => {
+	const handleUpvoteRequest: SubmitFunction = ({ action }) => {
 		const requestId = action.searchParams.get('id')
 
 		if (requestId) {
-			productRequests.update((current) => {
-				const requestIndex = current.findIndex((productRequest) => productRequest.id === requestId)
-				if (current[requestIndex].upvoted) {
-					current[requestIndex].upvotes -= 1
-					current[requestIndex].upvoted = false
-				} else {
-					current[requestIndex].upvotes += 1
-					current[requestIndex].upvoted = true
-				}
-				return current
-			})
+			upvoteRequest(requestId)
+			// upvote the request in browser for csr
 			upvoted ? (upvotes -= 1) : (upvotes += 1)
 			upvoted = !upvoted
 		}
@@ -51,12 +42,12 @@
 			>
 		</div>
 		<div class="upvotes">
-			<form method="post" use:enhance={submitUpvoteRequest}>
+			<form method="post" use:enhance={handleUpvoteRequest}>
 				<button
 					class={`z-10 py-2 px-4 text-xs font-semibold rounded-[10px] gap-2 flex items-center max-w-fit md:flex-col md:px-2 md:py-3 hover:bg-blue-100 min-w-[40px] 
           ${upvoted ? 'bg-blue-400 text-white' : 'bg-gray-200 text-gray-500'}`}
 					aria-label={upvoted ? 'Remove your upvote from this request' : 'Upvote this request'}
-					formaction="/?/upvote&id={id}"
+					formaction="/?/upvoteRequest&id={id}"
 				>
 					<img src={upvoted ? arrowUpIconWhite : arrowUpIcon} alt="" />
 					{upvotes}</button
