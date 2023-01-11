@@ -7,6 +7,8 @@
 	import Filters from './Filters.svelte'
 	import Roadmap from './Roadmap.svelte'
 
+	// TODO fix issue with nav opening automatically when this menuOpen=true
+	// try using tailwind peer/group methods to show/hide the nav
 	let menuOpen = false
 
 	onMount(() => (menuOpen = false))

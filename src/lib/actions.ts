@@ -1,6 +1,40 @@
 import { v4 as uuidv4 } from 'uuid'
 import type Reply from '$types/Reply'
-import { productRequests } from '$lib/stores'
+import type { Sort } from '$lib/stores'
+import { productRequests, filters } from '$lib/stores'
+import type { Category } from './types/ProductRequest'
+
+export const updateSort = (sort: Sort) => {
+	filters.update((current) => {
+		current.sort = sort
+		return current
+	})
+}
+
+export const updateFilters = (category: Category) => {
+	if (category) {
+		filters.update((current) => {
+			current.category = category
+			return current
+		})
+	}
+}
+
+export const upvoteRequest = (requestId: string) => {
+	if (requestId) {
+		productRequests.update((current) => {
+			const requestIndex = current.findIndex((productRequest) => productRequest.id === requestId)
+			if (current[requestIndex].upvoted) {
+				current[requestIndex].upvotes -= 1
+				current[requestIndex].upvoted = false
+			} else {
+				current[requestIndex].upvotes += 1
+				current[requestIndex].upvoted = true
+			}
+			return current
+		})
+	}
+}
 
 export const postReply = (data: FormData) => {
 	const commentId = data.get('commentId')

@@ -22,6 +22,8 @@
 	const handleReply: SubmitFunction = ({ data }) => {
 		postReply(data)
 	}
+
+	$: replies
 </script>
 
 <article

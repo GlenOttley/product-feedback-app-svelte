@@ -1,22 +1,20 @@
 <script>
 	import Select from 'svelte-select'
-	import { filters, filteredProductRequests } from '$lib/stores'
+	import { filters } from '$lib/stores'
+	import { updateSort } from '$lib/actions'
 
 	export let sortOptions
 	let selectedOption = $filters.sort
 
-	function updateSort() {
-		filters.update((current) => {
-			current.sort = selectedOption.value
-			return current
-		})
+	const handleUpdateSort = () => {
+		updateSort(selectedOption.value)
 	}
 </script>
 
 <div class="flex items-center">
 	<span id="sort-label" class="text-sm text-gray-300 whitespace-nowrap ">Sort by :&nbsp;</span>
 	<Select
-		on:change={updateSort}
+		on:change={handleUpdateSort}
 		bind:value={selectedOption}
 		class="dropdown"
 		items={sortOptions}
