@@ -1,9 +1,8 @@
-import type { SubmitFunction } from '$app/forms'
 import { v4 as uuidv4 } from 'uuid'
 import type Reply from '$types/Reply'
 import { productRequests } from '$lib/stores'
 
-export const postReply: SubmitFunction = ({ data }) => {
+export const postReply = (data: FormData) => {
 	const commentId = data.get('commentId')
 	const productRequestId = data.get('productRequestId')
 	const replyingTo = data.get('replyingTo')

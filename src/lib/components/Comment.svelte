@@ -4,6 +4,7 @@
 	import { enhance } from '$app/forms'
 	import { page } from '$app/stores'
 	import { postReply } from '$lib/actions'
+	import type { SubmitFunction } from '@sveltejs/kit'
 
 	export let comment: Comment
 	export let isLastComment: boolean = false
@@ -17,6 +18,10 @@
 	onMount(() => (showReplyForm = false))
 
 	const { user, content, replies, replyingTo, id } = comment
+
+	const handleReply: SubmitFunction = ({ data }) => {
+		postReply(data)
+	}
 </script>
 
 <article
@@ -51,7 +56,7 @@
 
 	<form
 		method="post"
-		use:enhance={postReply}
+		use:enhance={handleReply}
 		class="flex-col hidden gap-4 reply-form peer-checked/reply-toggle:flex md:flex-row md:items-start"
 	>
 		<textarea
