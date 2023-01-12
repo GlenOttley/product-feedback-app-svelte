@@ -3,18 +3,12 @@
 	import ProductRequestOverview from '$components/ProductRequestOverview.svelte'
 	import Comment from '$components/Comment.svelte'
 	import ArrowLeftIcon from '$assets/shared/icon-arrow-left.svg'
+	import getCommentsLength from '$lib/utils/getCommentsLength'
 
 	export let data: ProductRequest
 
 	const { comments, id } = data
-	let commentsLength = 0
-
-	comments.forEach((comment) => {
-		if (comment.replies) {
-			commentsLength += comment.replies.length
-		}
-		commentsLength += 1
-	})
+	let commentsLength = getCommentsLength(comments)
 </script>
 
 <div class="container mt-6">

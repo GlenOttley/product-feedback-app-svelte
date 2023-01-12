@@ -17,13 +17,11 @@
 
 	onMount(() => (showReplyForm = false))
 
-	const { user, content, replies, replyingTo, id } = comment
+	$: ({ user, content, replies, replyingTo, id } = comment)
 
 	const handleReply: SubmitFunction = ({ data }) => {
 		postReply(data)
 	}
-
-	$: replies
 </script>
 
 <article
@@ -58,6 +56,7 @@
 
 	<form
 		method="post"
+		action="?/postReply"
 		use:enhance={handleReply}
 		class="flex-col hidden gap-4 reply-form peer-checked/reply-toggle:flex md:flex-row md:items-start"
 	>
@@ -72,9 +71,8 @@
 		<input type="hidden" name="productRequestId" value={$page.params.id} />
 		<input type="hidden" name="commentId" value={parentCommentId} />
 		<input type="hidden" name="replyingTo" value={user.username} />
-		<button
-			formaction="?/postReply"
-			class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap">Post Reply</button
+		<button type="submit" class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap"
+			>Post Reply</button
 		>
 	</form>
 
@@ -88,7 +86,7 @@
 	</div>
 </article>
 {#if replies}
-	{#each replies as reply, index}
+	{#each replies as reply, index (reply.id)}
 		<svelte:self
 			comment={reply}
 			{parentCommentId}

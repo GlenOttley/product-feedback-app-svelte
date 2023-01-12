@@ -6,10 +6,12 @@
 	import commentsIcon from '$assets/shared/icon-comments.svg'
 	import type ProductRequest from '$types/ProductRequest'
 	import { upvoteRequest } from '$lib/actions'
+	import getCommentsLength from '$lib/utils/getCommentsLength'
 
 	export let productRequest: ProductRequest
 
 	let { title, description, status, upvotes, comments, id, upvoted } = productRequest
+	let commentsLength = getCommentsLength(comments)
 
 	const handleUpvoteRequest: SubmitFunction = ({ action }) => {
 		const requestId = action.searchParams.get('id')
@@ -60,7 +62,7 @@
 				role="status"
 				aria-label="{comments.length} for this request"
 			>
-				<img src={commentsIcon} alt="" />{comments.length}</span
+				<img src={commentsIcon} alt="" />{commentsLength}</span
 			>
 		</div>
 	</div>

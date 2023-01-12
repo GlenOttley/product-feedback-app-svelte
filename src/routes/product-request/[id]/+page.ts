@@ -4,8 +4,8 @@ import { productRequests } from '$lib/stores'
 
 export const load = (({ params }) => {
 	let productRequest
-	productRequests.subscribe((value) => {
-		productRequest = value.find((request) => request.id === params.id)
+	productRequests.subscribe((current) => {
+		productRequest = current.find((request) => request.id === params.id)
 	})
 	if (productRequest) {
 		return productRequest
