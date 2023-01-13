@@ -2,11 +2,11 @@
 	import MobileHeader from '$components/MobileHeader.svelte'
 	import SortBar from '$components/SortBar.svelte'
 	import ProductRequestOverview from '$lib/components/ProductRequestOverview.svelte'
-	import { filteredProductRequests } from '$lib/stores'
 	import Filters from '$components/Filters.svelte'
 	import HeaderBadge from '$components/HeaderBadge.svelte'
 	import Roadmap from '$lib/components/Roadmap.svelte'
 	import EmptyRequests from '$lib/components/EmptyRequests.svelte'
+	import { filteredProductRequests } from '$lib/stores'
 </script>
 
 <div class="mb-[55px] md:mb-[113px] lg:mb-[129px]">

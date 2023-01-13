@@ -6,14 +6,17 @@
 	import getCommentsLength from '$lib/utils/getCommentsLength'
 	import { productRequests } from '$lib/stores'
 	import { page } from '$app/stores'
+	import { onDestroy } from 'svelte/internal'
 
 	let productRequest: ProductRequest
 	let commentsLength: number
 
-	productRequests.subscribe((current) => {
+	const unsubscribe = productRequests.subscribe((current) => {
 		productRequest = current.find((request) => request.id === $page.params.id) as ProductRequest
 		commentsLength = getCommentsLength(productRequest.comments)
 	})
+
+	onDestroy(unsubscribe)
 </script>
 
 <div class="container mt-6">

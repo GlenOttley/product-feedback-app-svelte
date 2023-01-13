@@ -31,7 +31,7 @@ productRequests.subscribe((value) => {
 
 export const filters = writable<Filters>({
 	category: 'all',
-	status: '',
+	status: 'suggestion',
 	sort: 'mostUpvotes'
 })
 
@@ -46,11 +46,13 @@ function compareComments(a: ProductRequest, b: ProductRequest) {
 export const filteredProductRequests = derived(
 	[productRequests, filters],
 	([$productRequests, $filters]) => {
-		const filtered = Object.values($productRequests).filter((request) =>
-			$filters.category && $filters.category !== 'all'
-				? request.category.includes($filters.category)
-				: request
-		)
+		const filtered = Object.values($productRequests)
+			.filter((request) => ($filters.status ? request.status.includes($filters.status) : request))
+			.filter((request) =>
+				$filters.category && $filters.category !== 'all'
+					? request.category.includes($filters.category)
+					: request
+			)
 		let sorted: ProductRequest[]
 		switch ($filters.sort) {
 			case 'mostUpvotes':

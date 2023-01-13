@@ -22,7 +22,6 @@ export const addProductRequest = (data: FormData) => {
 
 	productRequests.update((current) => {
 		current.push(newRequest)
-		console.log(current)
 		return current
 	})
 }

@@ -10,7 +10,7 @@
 
 	export let productRequest: ProductRequest
 
-	let { title, description, status, upvotes, comments, id, upvoted } = productRequest
+	let { title, description, category, upvotes, comments, id, upvoted } = productRequest
 	let commentsLength = getCommentsLength(comments)
 
 	const handleUpvoteRequest: SubmitFunction = ({ action }) => {
@@ -36,11 +36,11 @@
 		<div class="mb-2 description md:mb-3">
 			<p class="text-xs text-gray-400 md:text-base">{description}</p>
 		</div>
-		<div class="mb-5 status md:mb-0">
+		<div class="mb-5 category md:mb-0">
 			<span
 				class="py-2 px-4 text-xs text-blue-400 capitalize bg-gray-200 font-semibold rounded-[10px]"
 				role="status"
-				aria-label="This request has a status of {status}">{status}</span
+				aria-label="This request has a status of {category}">{category}</span
 			>
 		</div>
 		<div class="upvotes">
@@ -76,7 +76,7 @@
 		grid-template-areas:
 			'title title'
 			'description description'
-			'status status'
+			'category category'
 			'upvotes comments';
 	}
 	@media screen and (min-width: 768px) {
@@ -86,7 +86,7 @@
 			grid-template-areas:
 				'upvotes title title'
 				'upvotes description comments'
-				'upvotes status status';
+				'upvotes category category';
 		}
 	}
 	.title {
@@ -95,8 +95,8 @@
 	.description {
 		grid-area: description;
 	}
-	.status {
-		grid-area: status;
+	.category {
+		grid-area: category;
 	}
 	.upvotes {
 		grid-area: upvotes;
