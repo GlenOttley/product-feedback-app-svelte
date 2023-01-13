@@ -3,6 +3,29 @@ import type Reply from '$types/Reply'
 import type { Sort } from '$lib/stores'
 import { productRequests, filters } from '$lib/stores'
 import type { Category } from './types/ProductRequest'
+import type ProductRequest from './types/ProductRequest'
+
+export const addProductRequest = (data: FormData) => {
+	const title = data.get('title')
+	const category = data.get('category')
+	const description = data.get('description')
+
+	const newRequest = {
+		id: uuidv4(),
+		title,
+		category,
+		description,
+		upvotes: 0,
+		status: 'suggestion',
+		comments: []
+	} as ProductRequest
+
+	productRequests.update((current) => {
+		current.push(newRequest)
+		console.log(current)
+		return current
+	})
+}
 
 export const updateSort = (sort: Sort) => {
 	filters.update((current) => {

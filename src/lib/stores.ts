@@ -21,13 +21,13 @@ export const productRequests = writable<ProductRequest[]>(
 		: (data.productRequests as ProductRequest[])
 )
 
-// export const productRequests = writable<ProductRequest[]>(data.productRequests as ProductRequest[])
-
 productRequests.subscribe((value) => {
 	if (browser) {
 		window.localStorage.setItem('productRequests', JSON.stringify(value))
 	}
 })
+
+// export const productRequests = writable<ProductRequest[]>(data.productRequests as ProductRequest[])
 
 export const filters = writable<Filters>({
 	category: 'all',

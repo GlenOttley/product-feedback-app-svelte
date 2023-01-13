@@ -18,7 +18,7 @@
 
 		if (requestId) {
 			upvoteRequest(requestId)
-			// upvote the request in browser for csr
+			// optimistically upvote the request in browser for csr
 			upvoted ? (upvotes -= 1) : (upvotes += 1)
 			upvoted = !upvoted
 		}

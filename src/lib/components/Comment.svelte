@@ -21,6 +21,7 @@
 
 	const handleReply: SubmitFunction = ({ data }) => {
 		postReply(data)
+		showReplyForm = false
 	}
 </script>
 
@@ -65,7 +66,7 @@
 			id="reply"
 			placeholder="Type your reply here"
 			rows="2"
-			class="bg-gray-200 rounded-[5px] py-4 px-6 placeholder:text-xs placeholder:text-[#8C92B3]
+			class="bg-gray-100 rounded-[5px] py-4 px-6 placeholder:text-xs placeholder:text-[#8C92B3]
       text-gray-500 text-xs w-full"
 		/>
 		<input type="hidden" name="productRequestId" value={$page.params.id} />
