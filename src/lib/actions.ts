@@ -16,6 +16,7 @@ export const addProductRequest = (data: FormData) => {
 		category,
 		description,
 		upvotes: 0,
+		upvoted: false,
 		status: 'suggestion',
 		comments: []
 	} as ProductRequest
@@ -42,23 +43,24 @@ export const updateFilters = (category: Category) => {
 	}
 }
 
-export const upvoteRequest = (requestId: string) => {
-	if (requestId) {
-		productRequests.update((current) => {
-			const requestIndex = current.findIndex((productRequest) => productRequest.id === requestId)
-			if (current[requestIndex].upvoted) {
-				current[requestIndex].upvotes -= 1
-				current[requestIndex].upvoted = false
+export const upvoteRequest = (data: FormData) => {
+	const id = data.get('id')
+
+	productRequests.update((current) => {
+		const productRequest = current.find((productRequest) => productRequest.id === id)
+		if (productRequest)
+			if (productRequest.upvoted) {
+				productRequest.upvotes -= 1
+				productRequest.upvoted = false
 			} else {
-				current[requestIndex].upvotes += 1
-				current[requestIndex].upvoted = true
+				productRequest.upvotes += 1
+				productRequest.upvoted = true
 			}
-			return current
-		})
-	}
+		return current
+	})
 }
 
-export const postReply = (data: FormData) => {
+export const addReply = (data: FormData) => {
 	const commentId = data.get('commentId')
 	const productRequestId = data.get('productRequestId')
 	const replyingTo = data.get('replyingTo')
@@ -76,16 +78,18 @@ export const postReply = (data: FormData) => {
 	} as Reply
 
 	productRequests.update((current) => {
-		const requestIndex = current.findIndex(
+		const request = current.find(
 			(productRequest) => productRequest.id === productRequestId
-		)
-		const commentIndex = current[requestIndex].comments.findIndex(
-			(comment) => comment.id === commentId
-		)
-		if (current[requestIndex].comments[commentIndex].replies) {
-			current[requestIndex].comments[commentIndex].replies?.push(newReply)
-		} else {
-			current[requestIndex].comments[commentIndex].replies = [newReply]
+		) as ProductRequest
+
+		const comment = request.comments.find((comment) => comment.id === commentId)
+
+		if (comment) {
+			if (comment.replies) {
+				comment.replies?.push(newReply)
+			} else {
+				comment.replies = [newReply]
+			}
 		}
 		return current
 	})

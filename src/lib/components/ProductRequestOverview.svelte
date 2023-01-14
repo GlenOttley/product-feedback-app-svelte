@@ -11,16 +11,15 @@
 	export let productRequest: ProductRequest
 
 	let { title, description, category, upvotes, comments, id, upvoted } = productRequest
-	let commentsLength = getCommentsLength(comments)
+	const commentsLength = getCommentsLength(comments)
 
-	const handleUpvoteRequest: SubmitFunction = ({ action }) => {
-		const requestId = action.searchParams.get('id')
-
-		if (requestId) {
-			upvoteRequest(requestId)
-			// optimistically upvote the request in browser for csr
-			upvoted ? (upvotes -= 1) : (upvotes += 1)
-			upvoted = !upvoted
+	const handleUpvoteRequest: SubmitFunction = ({ data }) => {
+		return async ({ result }) => {
+			if (result.status === 204) {
+				upvoted ? (upvotes -= 1) : (upvotes += 1)
+				upvoted = !upvoted
+				upvoteRequest(data)
+			}
 		}
 	}
 </script>
@@ -44,12 +43,12 @@
 			>
 		</div>
 		<div class="upvotes">
-			<form method="post" use:enhance={handleUpvoteRequest}>
+			<form method="post" action="/?/upvoteRequest" use:enhance={handleUpvoteRequest}>
+				<input type="hidden" name="id" value={id} />
 				<button
 					class={`z-10 py-2 px-4 text-xs font-semibold rounded-[10px] gap-2 flex items-center max-w-fit md:flex-col md:px-2 md:py-3 hover:bg-blue-100 min-w-[40px] 
           ${upvoted ? 'bg-blue-400 text-white' : 'bg-gray-200 text-gray-500'}`}
 					aria-label={upvoted ? 'Remove your upvote from this request' : 'Upvote this request'}
-					formaction="/?/upvoteRequest&id={id}"
 				>
 					<img src={upvoted ? arrowUpIconWhite : arrowUpIcon} alt="" />
 					{upvotes}</button

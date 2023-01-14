@@ -6,6 +6,8 @@
 	import { enhance } from '$app/forms'
 	import plusIcon from '$assets/shared/icon-plus.svg'
 	import arrowLeftIcon from '$assets/shared/icon-arrow-left.svg'
+	import { addProductRequest } from '$lib/actions'
+	import type { SubmitFunction } from '@sveltejs/kit'
 
 	let categoryOptions = [
 		{ label: 'Feature', value: 'feature' },
@@ -16,6 +18,15 @@
 	]
 
 	export let form: ActionData
+
+	const handleAddProductRequest: SubmitFunction = ({ data }) => {
+		return async ({ result, update }) => {
+			if (result.status === 303) {
+				addProductRequest(data)
+			}
+			update()
+		}
+	}
 </script>
 
 <main class="container mt-6">
@@ -31,7 +42,7 @@
 			<img src={plusIcon} alt="" class="w-3" />
 		</span>
 		<h1 class="mb-6 text-lg font-bold text-gray-500">Create New Feedback</h1>
-		<form action="?/addProductRequest" method="post" use:enhance>
+		<form action="?/addProductRequest" method="post" use:enhance={handleAddProductRequest}>
 			<fieldset class="mb-6">
 				<label for="title" class="text-xs font-bold text-gray-500 tracking-[-0.18px] mb-1 block"
 					>Feedback Title</label

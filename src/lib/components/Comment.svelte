@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte/internal'
 	import { enhance } from '$app/forms'
 	import { page } from '$app/stores'
-	import { postReply } from '$lib/actions'
+	import { addReply } from '$lib/actions'
 	import type { SubmitFunction } from '@sveltejs/kit'
 
 	export let comment: Comment
@@ -20,7 +20,7 @@
 	$: ({ user, content, replies, replyingTo, id } = comment)
 
 	const handleReply: SubmitFunction = ({ data }) => {
-		postReply(data)
+		addReply(data)
 		showReplyForm = false
 	}
 </script>
@@ -57,7 +57,7 @@
 
 	<form
 		method="post"
-		action="?/postReply"
+		action="?/addReply"
 		use:enhance={handleReply}
 		class="flex-col hidden gap-4 reply-form peer-checked/reply-toggle:flex md:flex-row md:items-start"
 	>

@@ -19,11 +19,8 @@ export const actions: Actions = {
 			updateSort(sort)
 		}
 	},
-	upvoteRequest: async ({ url }) => {
-		const requestId = url.searchParams.get('id')
-
-		if (requestId) {
-			upvoteRequest(requestId)
-		}
+	upvoteRequest: async ({ request }) => {
+		const data = await request.formData()
+		upvoteRequest(data)
 	}
 }

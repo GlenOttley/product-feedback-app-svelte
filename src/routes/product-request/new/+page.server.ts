@@ -1,5 +1,4 @@
 import type { Actions } from './$types'
-
 import { addProductRequest } from '$lib/actions'
 import { redirect, fail } from '@sveltejs/kit'
 
@@ -24,16 +23,8 @@ export const actions: Actions = {
 
 		const fieldsToCheck = [{ title }, { description }]
 		const errors = {
-			title: {
-				// missing: '',
-				// minLength: '',
-				// maxLength: ''
-			},
-			description: {
-				// missing: '',
-				// minLength: '',
-				// maxLength: ''
-			}
+			title: {},
+			description: {}
 		} as unknown as ErrorObj
 
 		fieldsToCheck.forEach((field) => {
