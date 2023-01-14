@@ -1,5 +1,4 @@
 import type { Actions } from './$types'
-
 import { addProductRequest } from '$lib/actions'
 import { redirect, fail } from '@sveltejs/kit'
 
@@ -15,6 +14,35 @@ interface ErrorObj {
 	[key: string]: Error
 }
 
+export const validate = (data: FormData) => {
+	const title = data.get('title')
+	const description = data.get('description')
+	const fieldsToCheck = [{ title }, { description }]
+	const errors = {
+		title: {},
+		description: {}
+	} as unknown as ErrorObj
+
+	fieldsToCheck.forEach((field) => {
+		for (const [key, val] of Object.entries(field)) {
+			if (!val) {
+				errors[key].missing = "Can't be empty"
+			}
+			if (val.length < 10) {
+				errors[key].minLength = 'Must be at least 10 characters'
+			}
+			if (key === 'title' && val.length > 50) {
+				errors[key].maxLength = 'Can be at most 50 characters'
+			}
+			if (key === 'description' && val.length > 200) {
+				errors[key].minLength = 'Can be at most 200 characters'
+			}
+		}
+	})
+
+	return errors
+}
+
 export const actions: Actions = {
 	addProductRequest: async ({ request }) => {
 		const data = await request.formData()
@@ -22,36 +50,7 @@ export const actions: Actions = {
 		const category = data.get('category')
 		const description = data.get('description')
 
-		const fieldsToCheck = [{ title }, { description }]
-		const errors = {
-			title: {
-				// missing: '',
-				// minLength: '',
-				// maxLength: ''
-			},
-			description: {
-				// missing: '',
-				// minLength: '',
-				// maxLength: ''
-			}
-		} as unknown as ErrorObj
-
-		fieldsToCheck.forEach((field) => {
-			for (const [key, val] of Object.entries(field)) {
-				if (!val) {
-					errors[key].missing = "Can't be empty"
-				}
-				if (val.length < 10) {
-					errors[key].minLength = 'Must be at least 10 characters'
-				}
-				if (key === 'title' && val.length > 50) {
-					errors[key].maxLength = 'Can be at most 50 characters'
-				}
-				if (key === 'description' && val.length > 200) {
-					errors[key].minLength = 'Can be at most 200 characters'
-				}
-			}
-		})
+		const errors = validate(data)
 
 		const hasErrors = (errors: ErrorObj) => {
 			let errorsFound = false

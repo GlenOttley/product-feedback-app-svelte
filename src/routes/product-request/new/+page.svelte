@@ -6,6 +6,10 @@
 	import { enhance } from '$app/forms'
 	import plusIcon from '$assets/shared/icon-plus.svg'
 	import arrowLeftIcon from '$assets/shared/icon-arrow-left.svg'
+	import type { SubmitFunction } from '@sveltejs/kit'
+	import { validate } from './+page.server'
+	import { redirect, fail } from '@sveltejs/kit'
+	import { addProductRequest } from '$lib/actions'
 
 	let categoryOptions = [
 		{ label: 'Feature', value: 'feature' },
@@ -16,6 +20,35 @@
 	]
 
 	export let form: ActionData
+
+	interface ErrorObj {
+		[key: string]: Error
+	}
+
+	const handleSubmit: SubmitFunction = ({ data }) => {
+		const errors = validate(data)
+
+		const title = data.get('title')
+		const category = data.get('category')
+		const description = data.get('description')
+
+		const hasErrors = (errors: ErrorObj) => {
+			let errorsFound = false
+			Object.keys(errors).forEach((field) => {
+				if (Object.keys(errors[field]).length) {
+					errorsFound = true
+				}
+			})
+			return errorsFound
+		}
+
+		if (hasErrors(errors as unknown as ErrorObj)) {
+			return fail(400, { data: { title, category, description }, errors: errors })
+		} else {
+			addProductRequest(data)
+			throw redirect(303, '/')
+		}
+	}
 </script>
 
 <main class="container mt-6">
@@ -31,7 +64,7 @@
 			<img src={plusIcon} alt="" class="w-3" />
 		</span>
 		<h1 class="mb-6 text-lg font-bold text-gray-500">Create New Feedback</h1>
-		<form action="?/addProductRequest" method="post" use:enhance>
+		<form action="?/addProductRequest" method="post" use:enhance={handleSubmit}>
 			<fieldset class="mb-6">
 				<label for="title" class="text-xs font-bold text-gray-500 tracking-[-0.18px] mb-1 block"
 					>Feedback Title</label

@@ -5,6 +5,47 @@ import { productRequests, filters } from '$lib/stores'
 import type { Category } from './types/ProductRequest'
 import type ProductRequest from './types/ProductRequest'
 
+interface ErrorObj {
+	[key: string]: Error
+}
+
+export const validate = (data: FormData) => {
+	const title = data.get('title')
+	const description = data.get('description')
+	const fieldsToCheck = [{ title }, { description }]
+	const errors = {
+		title: {
+			missing: '',
+			minLength: '',
+			maxLength: ''
+		},
+		description: {
+			missing: '',
+			minLength: '',
+			maxLength: ''
+		}
+	} as unknown as ErrorObj
+
+	fieldsToCheck.forEach((field) => {
+		for (const [key, val] of Object.entries(field)) {
+			if (!val) {
+				errors[key].missing = "Can't be empty"
+			}
+			if (val.length < 10) {
+				errors[key].minLength = 'Must be at least 10 characters'
+			}
+			if (key === 'title' && val.length > 50) {
+				errors[key].maxLength = 'Can be at most 50 characters'
+			}
+			if (key === 'description' && val.length > 200) {
+				errors[key].minLength = 'Can be at most 200 characters'
+			}
+		}
+	})
+
+	return errors
+}
+
 export const addProductRequest = (data: FormData) => {
 	const title = data.get('title')
 	const category = data.get('category')
