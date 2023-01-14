@@ -5,6 +5,7 @@
 	import type { ActionData } from './$types'
 	import { enhance } from '$app/forms'
 	import plusIcon from '$assets/shared/icon-plus.svg'
+	import arrowLeftIcon from '$assets/shared/icon-arrow-left.svg'
 
 	let categoryOptions = [
 		{ label: 'Feature', value: 'feature' },
@@ -18,8 +19,15 @@
 </script>
 
 <main class="container mt-6">
-	<div class="p-6 pt-11 bg-white rounded-[10px] tracking-[-0.25px]">
-		<span class="absolute flex w-10 h-10 rounded-full bg-red-100 items-center justify-center">
+	<a href="/" class="text-xs text-gray-400 font-bold flex items-center gap-4 mb-14">
+		<img src={arrowLeftIcon} alt="" />
+		Go Back</a
+	>
+	<div class="p-6 pt-11 bg-white rounded-[10px] tracking-[-0.25px] relative">
+		<!-- TODO give this element a radial gradient background to match figma -->
+		<span
+			class="plus-icon absolute flex w-10 h-10 rounded-full items-center justify-center bg-purple-200 -top-5"
+		>
 			<img src={plusIcon} alt="" class="w-3" />
 		</span>
 		<h1 class="mb-6 text-lg font-bold text-gray-500">Create New Feedback</h1>
