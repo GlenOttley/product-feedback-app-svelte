@@ -1,9 +1,10 @@
-import { v4 as uuidv4 } from 'uuid'
-import type Reply from '$types/Reply'
 import type { Sort } from '$lib/stores'
-import { productRequests, filters } from '$lib/stores'
-import type { Category } from './types/ProductRequest'
+import { filters, productRequests } from '$lib/stores'
+import type Comment from '$types/Comment'
+import type Reply from '$types/Reply'
+import { v4 as uuidv4 } from 'uuid'
 import type ProductRequest from './types/ProductRequest'
+import type { Category } from './types/ProductRequest'
 
 export const addProductRequest = (data: FormData) => {
 	const title = data.get('title')
@@ -14,10 +15,10 @@ export const addProductRequest = (data: FormData) => {
 		id: uuidv4(),
 		title,
 		category,
-		description,
 		upvotes: 0,
 		upvoted: false,
 		status: 'suggestion',
+		description,
 		comments: []
 	} as ProductRequest
 
@@ -56,6 +57,30 @@ export const upvoteRequest = (data: FormData) => {
 				productRequest.upvotes += 1
 				productRequest.upvoted = true
 			}
+		return current
+	})
+}
+
+export const addComment = (data: FormData) => {
+	const productRequestId = data.get('productRequestId')
+	const content = data.get('content')
+
+	const newComment = {
+		id: uuidv4(),
+		content,
+		user: {
+			image: '/user-images/image-john.jpg',
+			name: 'John Doe',
+			username: 'john.doe'
+		}
+	} as Comment
+
+	productRequests.update((current) => {
+		const request = current.find(
+			(productRequest) => productRequest.id === productRequestId
+		) as ProductRequest
+
+		request.comments.push(newComment)
 		return current
 	})
 }

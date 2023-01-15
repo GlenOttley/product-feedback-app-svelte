@@ -30,24 +30,28 @@
 </script>
 
 <main class="container mt-6">
-	<a href="/" class="text-xs text-gray-400 font-bold flex items-center gap-4 mb-14">
+	<a href="/" class="flex items-center gap-4 text-xs md:text-[14px] font-bold text-gray-400 mb-14">
 		<img src={arrowLeftIcon} alt="" />
 		Go Back</a
 	>
-	<div class="p-6 pt-11 bg-white rounded-[10px] tracking-[-0.25px] relative">
+	<div
+		class="p-6 pt-11 bg-white rounded-[10px] tracking-[-0.25px] relative md:py-[52px] md:px-[42px]"
+	>
 		<!-- TODO give this element a radial gradient background to match figma -->
 		<span
-			class="plus-icon absolute flex w-10 h-10 rounded-full items-center justify-center bg-purple-200 -top-5"
+			class="absolute flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full md:w-14 md:h-14 plus-icon -top-6"
 		>
-			<img src={plusIcon} alt="" class="w-3" />
+			<img src={plusIcon} alt="" class="w-3 md:w-4" />
 		</span>
-		<h1 class="mb-6 text-lg font-bold text-gray-500">Create New Feedback</h1>
+		<h1 class="mb-6 text-lg font-bold text-gray-500 md:text-2xl">Create New Feedback</h1>
 		<form action="?/addProductRequest" method="post" use:enhance={handleAddProductRequest}>
 			<fieldset class="mb-6">
-				<label for="title" class="text-xs font-bold text-gray-500 tracking-[-0.18px] mb-1 block"
+				<label
+					for="title"
+					class="text-xs md:text-[14px] font-bold text-gray-500 tracking-[-0.18px] mb-1 block"
 					>Feedback Title</label
 				>
-				<label for="title" class="block mb-4 text-xs text-gray-400"
+				<label for="title" class="block mb-4 text-xs md:text-[14px] text-gray-400"
 					>Add a short, descriptive headline</label
 				>
 				<input
@@ -56,49 +60,41 @@
 					id="title"
 					value={form?.data.title ?? ''}
 					class="bg-gray-100 rounded-[5px] py-3 px-6 placeholder:text-xs placeholder:text-[#8C92B3]
-          text-gray-500 text-xs w-full "
+          text-gray-500 text-xs md:text-[15px] w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1  
+            {form?.errors.title
+						? 'ring-1 !ring-red-100 focus-within:!ring-blue-400 hover:!ring-blue-400'
+						: ''}"
 				/>
 				{#if form?.errors.title}
 					{#each Object.values(form.errors.title) as error}
-						<p class="block pt-1 text-xs text-red-100">{error}</p>
+						<p class="block pt-1 text-xs md:text-[14px] text-red-100">{error}</p>
 					{/each}
 				{/if}
 			</fieldset>
 
 			<fieldset class="mb-6">
-				<label for="category" class="text-xs font-bold text-gray-500 tracking-[-0.18px] mb-1 block"
+				<label
+					for="category"
+					class="text-xs md:text-[14px] font-bold text-gray-500 tracking-[-0.18px] mb-1 block"
 					>Category</label
 				>
-				<label for="category" class="block mb-4 text-xs text-gray-400"
+				<label for="category" class="block mb-4 text-xs md:text-[14px] text-gray-400"
 					>Choose a category for your feedback</label
 				>
-				<!-- {#if browser}
+				{#if browser}
 					<SelectCategoryBrowser {categoryOptions} />
-				{:else} -->
-				<select
-					name="category"
-					id="category"
-					class=" bg-gray-100 rounded-[5px] py-3 px-6 border-r-[16px] border-transparent placeholder:text-xs placeholder:text-[#8C92B3]
-            text-gray-500 text-xs w-full"
-				>
-					{#each categoryOptions as categoryOption, index}
-						<option
-							value={categoryOption.value}
-							selected={categoryOption.value === form?.data.category || index === 0}
-							>{categoryOption.label}</option
-						>
-					{/each}
-				</select>
-				<!-- {/if} -->
+				{:else}
+					<SelectCategoryServer {categoryOptions} {form} />
+				{/if}
 			</fieldset>
 
-			<fieldset class="mb-6">
+			<fieldset class="mb-10 md:mb-8">
 				<label
 					for="description"
-					class="text-xs font-bold text-gray-500 tracking-[-0.18px] mb-1 block"
+					class="text-xs md:text-[14px] font-bold text-gray-500 tracking-[-0.18px] mb-1 block"
 					>Feedback detail</label
 				>
-				<label for="description" class="block mb-4 text-xs text-gray-400"
+				<label for="description" class="block mb-4 text-xs md:text-[14px] text-gray-400"
 					>Include any specific comments on what should be improved, added, etc.</label
 				>
 				<textarea
@@ -106,24 +102,28 @@
 					id="description"
 					rows="5"
 					class="bg-gray-100 rounded-[5px] py-3 px-6 placeholder:text-xs placeholder:text-[#8C92B3]
-          text-gray-500 text-xs w-full">{form?.data.description ?? ''}</textarea
+          text-gray-500 text-xs md:text-[15px] w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1  
+          {form?.errors.description
+						? 'ring-1 !ring-red-100 focus-within:!ring-blue-400 hover:!ring-blue-400'
+						: ''}">{form?.data.description ?? ''}</textarea
 				>
 				{#if form?.errors.description}
 					{#each Object.values(form.errors.description) as error}
-						<p class="block pt-1 text-xs text-red-100">{error}</p>
+						<p class="block pt-1 text-xs md:text-[14px] text-red-100">{error}</p>
 					{/each}
 				{/if}
 			</fieldset>
 
-			<div class="flex flex-col gap-4">
+			<div class="flex flex-col gap-4 md:flex-row-reverse ">
 				<button
 					type="submit"
-					class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap"
+					class="px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-purple-200 button whitespace-nowrap"
 					>Add Feedback</button
 				>
 				<button
 					type="reset"
-					class="px-4 py-2 text-xs leading-6 bg-gray-500 button whitespace-nowrap">Cancel</button
+					class="px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-gray-500 button whitespace-nowrap"
+					>Cancel</button
 				>
 			</div>
 		</form>

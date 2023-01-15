@@ -1,20 +1,19 @@
 <script>
-	import searchIcon from '$lib/assets/shared/icon-search.svg'
-	export let sortOptions
+	export let categoryOptions
+	export let form
 </script>
 
-<form method="post" action="?/updateSort" class="flex">
-	<label for="sort" class="self-center text-sm text-gray-300 whitespace-nowrap">Sort:&nbsp;</label>
-
-	<select name="sort" id="sort" class="pl-4 bg-gray-100 text-black capitalize rounded-l-[10px]">
-		{#each sortOptions as sortOption}
-			<option value={sortOption.value} selected={sortOption.selected}>{sortOption.label}</option>
-		{/each}
-	</select>
-
-	<button
-		type="submit"
-		class="px-4 py-2 text-xs leading-6 bg-blue-400 rounded-l-none button whitespace-nowrap"
-		><img src={searchIcon} alt="" class="w-3 min-w-[12px]" /></button
-	>
-</form>
+<select
+	name="category"
+	id="category"
+	class=" bg-gray-100 rounded-[5px] py-3 px-6 border-r-[16px] border-transparent placeholder:text-xs placeholder:text-[#8C92B3]
+            text-gray-500 text-xs md:text-[15px] w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1 cursor-pointer"
+>
+	{#each categoryOptions as categoryOption, index}
+		<option
+			value={categoryOption.value}
+			selected={categoryOption.value === form?.data.category || index === 0}
+			>{categoryOption.label}</option
+		>
+	{/each}
+</select>

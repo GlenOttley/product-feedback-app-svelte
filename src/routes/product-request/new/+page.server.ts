@@ -21,6 +21,7 @@ export const actions: Actions = {
 		const category = data.get('category')
 		const description = data.get('description')
 
+		// TODO make this a resuable utility function which can be called from the addComment and addReply functions
 		const fieldsToCheck = [{ title }, { description }]
 		const errors = {
 			title: {},

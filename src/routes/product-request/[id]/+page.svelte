@@ -7,13 +7,15 @@
 	import { productRequests } from '$lib/stores'
 	import { page } from '$app/stores'
 	import { onDestroy } from 'svelte/internal'
+	import AddComment from '$components/AddComment.svelte'
 
 	let productRequest: ProductRequest
-	let commentsLength: number
+	let commentsLength: number = 0
 
 	const unsubscribe = productRequests.subscribe((current) => {
 		productRequest = current.find((request) => request.id === $page.params.id) as ProductRequest
 		commentsLength = getCommentsLength(productRequest.comments)
+		console.log(productRequest)
 	})
 
 	onDestroy(unsubscribe)
@@ -47,5 +49,9 @@
 				isFirstReply={false}
 			/>
 		{/each}
+	</div>
+
+	<div class="bg-white rounded-[10px] container py-6 mb-6 md:px-8">
+		<AddComment />
 	</div>
 </div>

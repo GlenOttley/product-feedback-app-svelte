@@ -5,6 +5,7 @@
 	import { page } from '$app/stores'
 	import { addReply } from '$lib/actions'
 	import type { SubmitFunction } from '@sveltejs/kit'
+	import { browser } from '$app/environment'
 
 	export let comment: Comment
 	export let isLastComment: boolean = false
@@ -23,6 +24,11 @@
 		addReply(data)
 		showReplyForm = false
 	}
+
+	let commentContent = ''
+	const maxlength = 250
+
+	$: charactersLeft = maxlength - commentContent.length
 </script>
 
 <article
@@ -66,18 +72,30 @@
 			id="reply"
 			placeholder="Type your reply here"
 			rows="2"
-			class="bg-gray-100 rounded-[5px] py-4 px-6 placeholder:text-xs placeholder:text-[#8C92B3]
-      text-gray-500 text-xs w-full"
+			required
+			{maxlength}
+			bind:value={commentContent}
+			class="bg-gray-100 rounded-[5px] py-3 px-6 placeholder:text-xs placeholder:text-[#8C92B3] 
+    text-gray-500 text-xs md:text-[15px] w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1"
 		/>
 		<input type="hidden" name="productRequestId" value={$page.params.id} />
 		<input type="hidden" name="commentId" value={parentCommentId} />
 		<input type="hidden" name="replyingTo" value={user.username} />
-		<button type="submit" class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap"
-			>Post Reply</button
-		>
+		<div class="flex items-center justify-between">
+			{#if browser}
+				<p class="text-xs text-gray-400 md:text-sm">{charactersLeft} Characters left</p>
+			{:else}
+				<p class="text-xs text-gray-400 md:text-sm">{maxlength} Characters max</p>
+			{/if}
+			<button
+				type="submit"
+				class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap"
+				>Post Reply</button
+			>
+		</div>
 	</form>
 
-	<div class="content ">
+	<div class="content">
 		<p class="text-xs text-gray-400 md:text-sm">
 			{#if replyingTo}
 				<span class="font-bold text-purple-200">@{replyingTo}</span>

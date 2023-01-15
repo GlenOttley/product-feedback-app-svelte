@@ -1,12 +1,13 @@
 <script>
 	import Select from 'svelte-select'
-	import { filters } from '$lib/stores'
 
 	export let categoryOptions
+	let selectedCategory = categoryOptions[0]
 </script>
 
+<input type="hidden" name="category" bind:value={selectedCategory.value} />
 <Select
-	bind:value={categoryOptions[0]}
+	bind:value={selectedCategory}
 	class="dropdown"
 	items={categoryOptions}
 	clearable={false}
@@ -14,9 +15,9 @@
 	showChevron
 	listOffset={16}
 	--background="#f7f8fd"
-	--border="none"
-	--border-hover="none"
-	--border-focused="2px solid #4661E6"
+	--border="1px solid transparent"
+	--border-hover="1px solid transparent"
+	--border-focused="1px solid #4661E6"
 	--list-border-radius="10px"
 	--list-shadow="0px 10px 40px -7px rgba(0, 0, 0, 0.5)"
 	--font-size="13px"

@@ -36,7 +36,7 @@
 
 		<a
 			href="/product-request/new"
-			class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap"
+			class="px-4 py-2 text-xs bg-purple-200 leading-6 button whitespace-nowrap"
 			><span class="sm:hidden">+ Add</span>
 			<span class="hidden sm:inline">+ Add Feedback</span></a
 		>
