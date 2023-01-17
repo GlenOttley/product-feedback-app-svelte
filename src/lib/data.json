@@ -1,4 +1,9 @@
 {
+	"currentUser": {
+		"image": "/user-images/image-zena.jpg",
+		"name": "Zena Kelley",
+		"username": "velvetround"
+	},
 	"productRequests": [
 		{
 			"id": "51cccc13-f528-4a31-a051-68a437ff9caa",

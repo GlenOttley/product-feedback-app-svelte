@@ -1,8 +1,8 @@
 <script>
 	import { browser } from '$app/environment'
-	import SelectSortBrowser from '$components/SelectSortBrowser.svelte'
-	import SelectSortServer from '$components/SelectSortServer.svelte'
-	import { filters, filteredProductRequests } from '$lib/stores'
+	import CustomSort from '$lib/components/CustomSort.svelte'
+	import NativeSort from '$lib/components/NativeSort.svelte'
+	import { filters, productRequests } from '$lib/stores'
 	import suggestionsIcon from '$assets/suggestions/icon-suggestions.svg'
 
 	let sortOptions = [
@@ -23,20 +23,20 @@
 			<div class="items-center hidden gap-4 md:flex">
 				<img src={suggestionsIcon} alt="" />
 				<h3 class="text-lg text-white font-bold tracking-[-0.25px]">
-					{$filteredProductRequests.length} Suggestions
+					{productRequests.length} Suggestions
 				</h3>
 			</div>
 
 			{#if browser}
-				<SelectSortBrowser {sortOptions} />
+				<CustomSort {sortOptions} />
 			{:else}
-				<SelectSortServer {sortOptions} />
+				<NativeSort {sortOptions} />
 			{/if}
 		</div>
 
 		<a
 			href="/product-request/new"
-			class="px-4 py-2 text-xs bg-purple-200 leading-6 button whitespace-nowrap"
+			class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap"
 			><span class="sm:hidden">+ Add</span>
 			<span class="hidden sm:inline">+ Add Feedback</span></a
 		>

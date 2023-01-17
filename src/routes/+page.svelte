@@ -6,7 +6,10 @@
 	import HeaderBadge from '$components/HeaderBadge.svelte'
 	import Roadmap from '$lib/components/Roadmap.svelte'
 	import EmptyRequests from '$lib/components/EmptyRequests.svelte'
-	import { filteredProductRequests } from '$lib/stores'
+	import { filters, productRequests } from '$lib/stores'
+	import { filterProductRequests } from '$lib/utils/filterProductRequests'
+
+	$: filteredProductRequests = filterProductRequests($productRequests, $filters)
 </script>
 
 <div class="mb-[55px] md:mb-[113px] lg:mb-[129px]">
@@ -29,8 +32,8 @@
 			</div>
 
 			<div class="container flex flex-col gap-4 lg:max-w-none lg:p-0">
-				{#if $filteredProductRequests.length}
-					{#each $filteredProductRequests as productRequest (productRequest.id)}
+				{#if filteredProductRequests.length}
+					{#each filteredProductRequests as productRequest (productRequest.id)}
 						<ProductRequestOverview {productRequest} />
 					{/each}
 				{:else}

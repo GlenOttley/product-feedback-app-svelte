@@ -1,4 +1,5 @@
 import type Comment from './Comment'
+import type User from './User'
 
 export type Category = 'all' | 'UI' | 'UX' | 'enhancement' | 'bug' | 'feature'
 export type Status = 'suggestion' | 'planned' | 'in-progress' | 'live'
@@ -12,6 +13,7 @@ interface ProductRequest {
 	description: string
 	comments: Comment[]
 	upvoted?: boolean
+	user?: User
 }
 
 export default ProductRequest

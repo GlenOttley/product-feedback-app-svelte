@@ -15,12 +15,7 @@
 </script>
 
 <h3 class="mb-6 text-lg font-bold text-gray-500">Add Comment</h3>
-<form
-	method="post"
-	action="?/addComment"
-	use:enhance={handleComment}
-	class="flex flex-col gap-4 md:flex-row md:items-start"
->
+<form method="post" action="?/addComment" use:enhance={handleComment} class="flex flex-col gap-4 ">
 	<input type="hidden" name="productRequestId" value={$page.params.id} />
 	<textarea
 		name="content"
@@ -39,7 +34,9 @@
 		{:else}
 			<p class="text-xs text-gray-400 md:text-sm">{maxlength} Characters max</p>
 		{/if}
-		<button type="submit" class="px-4 py-2 text-xs leading-6 bg-purple-200 button whitespace-nowrap"
+		<button
+			type="submit"
+			class="px-4 py-2 text-xs leading-6 bg-purple-200 md:px-6 md:py-3 button whitespace-nowrap"
 			>Post Comment</button
 		>
 	</div>

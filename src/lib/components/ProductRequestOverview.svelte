@@ -7,6 +7,7 @@
 	import type ProductRequest from '$types/ProductRequest'
 	import { upvoteRequest } from '$lib/actions'
 	import getCommentsLength from '$lib/utils/getCommentsLength'
+	import { page } from '$app/stores'
 
 	export let productRequest: ProductRequest
 
@@ -15,7 +16,7 @@
 
 	const handleUpvoteRequest: SubmitFunction = ({ data }) => {
 		return async ({ result }) => {
-			if (result.status === 204) {
+			if (result.status === 303) {
 				upvoted ? (upvotes -= 1) : (upvotes += 1)
 				upvoted = !upvoted
 				upvoteRequest(data)
@@ -43,7 +44,11 @@
 			>
 		</div>
 		<div class="upvotes">
-			<form method="post" action="/?/upvoteRequest" use:enhance={handleUpvoteRequest}>
+			<form
+				method="post"
+				action="/?/upvoteRequest&redirectTo={$page.url.pathname}"
+				use:enhance={handleUpvoteRequest}
+			>
 				<input type="hidden" name="id" value={id} />
 				<button
 					class={`z-10 py-2 px-4 text-xs font-semibold rounded-[10px] gap-2 flex items-center max-w-fit md:flex-col md:px-2 md:py-3 hover:bg-blue-100 min-w-[40px] 
@@ -57,7 +62,7 @@
 		</div>
 		<div class="comments">
 			<span
-				class="flex items-center justify-end py-2 text-xs font-semibold text-gray-500 gap-2 max-w-fit md:text-base"
+				class="flex items-center justify-end gap-2 py-2 text-xs font-semibold text-gray-500 max-w-fit md:text-base"
 				role="status"
 				aria-label="{comments.length} for this request"
 			>

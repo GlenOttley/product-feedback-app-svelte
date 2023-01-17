@@ -2,9 +2,9 @@ import type { Actions } from './$types'
 import type { Sort } from '$lib/stores'
 import { updateSort, updateFilters, upvoteRequest } from '$lib/actions'
 import type { Category } from '$lib/types/ProductRequest'
+import { redirect } from '@sveltejs/kit'
 
 // export const csr = false
-// export const ssr = false
 
 export const actions: Actions = {
 	updateFilters: async ({ url }) => {
@@ -19,8 +19,13 @@ export const actions: Actions = {
 			updateSort(sort)
 		}
 	},
-	upvoteRequest: async ({ request }) => {
+	// TODO fix upvote function - no longer works with csr enabled
+	upvoteRequest: async ({ request, url }) => {
+		const redirectTo = url.searchParams.get('redirectTo')
 		const data = await request.formData()
 		upvoteRequest(data)
+		if (redirectTo) {
+			throw redirect(303, redirectTo)
+		}
 	}
 }

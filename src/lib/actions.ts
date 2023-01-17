@@ -5,6 +5,22 @@ import type Reply from '$types/Reply'
 import { v4 as uuidv4 } from 'uuid'
 import type ProductRequest from './types/ProductRequest'
 import type { Category } from './types/ProductRequest'
+import { get } from 'svelte/store'
+import { currentUser } from '$lib/stores'
+
+export const editProductRequest = (data: FormData) => {
+	const id = data.get('id')
+	const title = data.get('title')
+	const category = data.get('category')
+	const status = data.get('status')
+	const description = data.get('description')
+
+	productRequests.update((current) => {
+		const index = current.findIndex((productRequest) => productRequest.id === id)
+		current[index] = { ...current[index], title, category, status, description } as ProductRequest
+		return current
+	})
+}
 
 export const addProductRequest = (data: FormData) => {
 	const title = data.get('title')
@@ -19,7 +35,8 @@ export const addProductRequest = (data: FormData) => {
 		upvoted: false,
 		status: 'suggestion',
 		description,
-		comments: []
+		comments: [],
+		user: get(currentUser)
 	} as ProductRequest
 
 	productRequests.update((current) => {
@@ -68,19 +85,17 @@ export const addComment = (data: FormData) => {
 	const newComment = {
 		id: uuidv4(),
 		content,
-		user: {
-			image: '/user-images/image-john.jpg',
-			name: 'John Doe',
-			username: 'john.doe'
-		}
+		user: get(currentUser)
 	} as Comment
 
 	productRequests.update((current) => {
 		const request = current.find(
 			(productRequest) => productRequest.id === productRequestId
 		) as ProductRequest
+		if (request) {
+			request.comments.push(newComment)
+		}
 
-		request.comments.push(newComment)
 		return current
 	})
 }
@@ -95,11 +110,7 @@ export const addReply = (data: FormData) => {
 		id: uuidv4(),
 		content,
 		replyingTo,
-		user: {
-			image: '/user-images/image-john.jpg',
-			name: 'John Doe',
-			username: 'john.doe'
-		}
+		user: get(currentUser)
 	} as Reply
 
 	productRequests.update((current) => {
@@ -107,13 +118,15 @@ export const addReply = (data: FormData) => {
 			(productRequest) => productRequest.id === productRequestId
 		) as ProductRequest
 
-		const comment = request.comments.find((comment) => comment.id === commentId)
+		if (request) {
+			const comment = request.comments.find((comment) => comment.id === commentId)
 
-		if (comment) {
-			if (comment.replies) {
-				comment.replies?.push(newReply)
-			} else {
-				comment.replies = [newReply]
+			if (comment) {
+				if (comment.replies) {
+					comment.replies?.push(newReply)
+				} else {
+					comment.replies = [newReply]
+				}
 			}
 		}
 		return current

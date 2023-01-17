@@ -1,7 +1,8 @@
 import type ProductRequest from '$types/ProductRequest'
 import type { Category } from '$types/ProductRequest'
 import type { Status } from '$types/ProductRequest'
-import { derived, writable } from 'svelte/store'
+import type User from '$types/User'
+import { writable } from 'svelte/store'
 import data from '$lib/data.json'
 import { browser } from '$app/environment'
 
@@ -12,6 +13,8 @@ export interface Filters {
 	status?: Status | ''
 	sort: Sort
 }
+
+export const currentUser = writable<User>(data.currentUser)
 
 const localProductRequests = browser ? window.localStorage.getItem('productRequests') : null
 
@@ -35,39 +38,39 @@ export const filters = writable<Filters>({
 	sort: 'mostUpvotes'
 })
 
-function compareUpvotes(a: ProductRequest, b: ProductRequest) {
-	return b.upvotes - a.upvotes
-}
+// function compareUpvotes(a: ProductRequest, b: ProductRequest) {
+// 	return b.upvotes - a.upvotes
+// }
 
-function compareComments(a: ProductRequest, b: ProductRequest) {
-	return b.comments.length - a.comments.length
-}
+// function compareComments(a: ProductRequest, b: ProductRequest) {
+// 	return b.comments.length - a.comments.length
+// }
 
-export const filteredProductRequests = derived(
-	[productRequests, filters],
-	([$productRequests, $filters]) => {
-		const filtered = Object.values($productRequests)
-			.filter((request) => ($filters.status ? request.status.includes($filters.status) : request))
-			.filter((request) =>
-				$filters.category && $filters.category !== 'all'
-					? request.category.includes($filters.category)
-					: request
-			)
-		let sorted: ProductRequest[]
-		switch ($filters.sort) {
-			case 'mostUpvotes':
-				sorted = filtered.sort(compareUpvotes)
-				break
-			case 'leastUpvotes':
-				sorted = filtered.sort(compareUpvotes).reverse()
-				break
-			case 'mostComments':
-				sorted = filtered.sort(compareComments)
-				break
-			case 'leastComments':
-				sorted = filtered.sort(compareComments).reverse()
-		}
+// export const filteredProductRequests = derived(
+// 	[productRequests, filters],
+// 	([$productRequests, $filters]) => {
+// 		const filtered = Object.values($productRequests)
+// 			.filter((request) => ($filters.status ? request.status.includes($filters.status) : request))
+// 			.filter((request) =>
+// 				$filters.category && $filters.category !== 'all'
+// 					? request.category.includes($filters.category)
+// 					: request
+// 			)
+// 		let sorted: ProductRequest[]
+// 		switch ($filters.sort) {
+// 			case 'mostUpvotes':
+// 				sorted = filtered.sort(compareUpvotes)
+// 				break
+// 			case 'leastUpvotes':
+// 				sorted = filtered.sort(compareUpvotes).reverse()
+// 				break
+// 			case 'mostComments':
+// 				sorted = filtered.sort(compareComments)
+// 				break
+// 			case 'leastComments':
+// 				sorted = filtered.sort(compareComments).reverse()
+// 		}
 
-		return sorted
-	}
-)
+// 		return sorted
+// 	}
+// )
