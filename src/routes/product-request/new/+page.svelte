@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
-	import SelectCategoryBrowser from '$lib/components/CustomSelect.svelte'
-	import SelectCategoryServer from '$lib/components/NativeSelect.svelte'
+	import CustomSelect from '$lib/components/CustomSelect.svelte'
+	import NativeSelect from '$lib/components/NativeSelect.svelte'
 	import type { ActionData } from './$types'
 	import { enhance } from '$app/forms'
 	import newFeedbackIcon from '$assets/shared/icon-new-feedback.svg'
@@ -40,7 +40,7 @@
 		<img
 			src={newFeedbackIcon}
 			alt=""
-			class="absolute w-10 h-10 bg-purple-200 rounded-full md:w-14 md:h-14 -top-6"
+			class="absolute w-10 h-10 bg-purple-200 rounded-full md:w-14 md:h-14 -top-5"
 		/>
 
 		<h1 class="mb-6 text-lg font-bold text-gray-500 md:text-2xl">Create New Feedback</h1>
@@ -82,9 +82,13 @@
 					>Choose a category for your feedback</label
 				>
 				{#if browser}
-					<SelectCategoryBrowser options={categoryOptions} />
+					<CustomSelect
+						options={categoryOptions}
+						selected={categoryOptions[0]}
+						property="category"
+					/>
 				{:else}
-					<SelectCategoryServer options={categoryOptions} {form} property="category" />
+					<NativeSelect options={categoryOptions} {form} property="category" />
 				{/if}
 			</fieldset>
 
@@ -120,10 +124,10 @@
 					class="px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-purple-200 button whitespace-nowrap"
 					>Add Feedback</button
 				>
-				<button
-					type="reset"
-					class="px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-gray-500 button whitespace-nowrap"
-					>Cancel</button
+				<a
+					href="/"
+					class="text-center px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-gray-500 button whitespace-nowrap"
+					>Cancel</a
 				>
 			</div>
 		</form>

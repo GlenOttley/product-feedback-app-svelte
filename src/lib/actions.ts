@@ -21,6 +21,11 @@ export const editProductRequest = (data: FormData) => {
 		return current
 	})
 }
+export const deleteProductRequest = (id: string) => {
+	productRequests.update((current) => {
+		return current.filter((request) => request.id !== id)
+	})
+}
 
 export const addProductRequest = (data: FormData) => {
 	const title = data.get('title')
@@ -74,6 +79,7 @@ export const upvoteRequest = (data: FormData) => {
 				productRequest.upvotes += 1
 				productRequest.upvoted = true
 			}
+
 		return current
 	})
 }

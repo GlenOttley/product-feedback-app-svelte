@@ -2,14 +2,15 @@
 	import Select from 'svelte-select'
 
 	export let options
-	export let selected = options[0]
+	export let selected
+	export let property
 </script>
 
-<input type="hidden" name="category" bind:value={selected.value} />
+<input type="hidden" name={property} bind:value={selected.value} />
 <Select
 	bind:value={selected}
-	class="dropdown"
 	items={options}
+	class="dropdown"
 	clearable={false}
 	searchable={false}
 	showChevron

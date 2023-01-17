@@ -1,5 +1,5 @@
 import type { Actions } from './$types'
-import { editProductRequest } from '$lib/actions'
+import { editProductRequest, deleteProductRequest } from '$lib/actions'
 import { redirect, fail } from '@sveltejs/kit'
 
 // export const csr = false
@@ -15,7 +15,11 @@ interface ErrorObj {
 }
 
 export const actions: Actions = {
-	editProductRequest: async ({ request }) => {
+	delete: async ({ params }) => {
+		deleteProductRequest(params.id)
+		throw redirect(303, '/')
+	},
+	edit: async ({ request }) => {
 		const data = await request.formData()
 		const title = data.get('title')
 		const category = data.get('category')

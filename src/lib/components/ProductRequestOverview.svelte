@@ -15,7 +15,7 @@
 	const commentsLength = getCommentsLength(comments)
 
 	const handleUpvoteRequest: SubmitFunction = ({ data }) => {
-		return async ({ result }) => {
+		return async ({ result, update }) => {
 			if (result.status === 303) {
 				upvoted ? (upvotes -= 1) : (upvotes += 1)
 				upvoted = !upvoted
@@ -62,7 +62,7 @@
 		</div>
 		<div class="comments">
 			<span
-				class="flex items-center justify-end gap-2 py-2 text-xs font-semibold text-gray-500 max-w-fit md:text-base"
+				class="flex items-center justify-end py-2 text-xs font-semibold text-gray-500 gap-2 max-w-fit md:text-base"
 				role="status"
 				aria-label="{comments.length} for this request"
 			>

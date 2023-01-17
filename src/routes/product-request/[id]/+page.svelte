@@ -10,9 +10,11 @@
 	import AddComment from '$components/AddComment.svelte'
 
 	let productRequest: ProductRequest
+	let commentsLength: number
 
 	const unsubscribe = productRequests.subscribe((current) => {
 		productRequest = current.find((request) => request.id === $page.params.id) as ProductRequest
+		if (productRequest) commentsLength = getCommentsLength(productRequest.comments)
 	})
 
 	onDestroy(unsubscribe)
@@ -25,7 +27,7 @@
 				<img src={ArrowLeftIcon} alt="" />
 				Go Back
 			</a>
-			{#if productRequest.user === $currentUser}
+			{#if productRequest.user?.username === $currentUser.username}
 				<a
 					href="./{productRequest.id}/edit"
 					class="rounded-[10px] bg-blue-400 text-white text-xs font-bold py-2 px-4 md:px-6 md:py-3"
@@ -39,7 +41,7 @@
 		</div>
 		<div class="bg-white rounded-[10px] container py-6 mb-6 md:px-8">
 			<h3 class="text-lg font-bold text-gray-500">
-				{getCommentsLength(productRequest.comments)} Comments
+				{commentsLength} Comments
 			</h3>
 			{#each productRequest.comments as comment, index (comment.id)}
 				<Comment

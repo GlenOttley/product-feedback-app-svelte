@@ -9,6 +9,11 @@
 	import { filters, productRequests } from '$lib/stores'
 	import { filterProductRequests } from '$lib/utils/filterProductRequests'
 
+	// productRequests.subscribe((value) => {
+	// 	console.log(value)
+	// 	return value
+	// })
+
 	$: filteredProductRequests = filterProductRequests($productRequests, $filters)
 </script>
 

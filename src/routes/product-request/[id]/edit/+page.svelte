@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
+	import { enhance } from '$app/forms'
+	import { page } from '$app/stores'
+	import arrowLeftIcon from '$assets/shared/icon-arrow-left.svg'
+	import editFeedbackIcon from '$assets/shared/icon-edit-feedback.svg'
+	import { editProductRequest, deleteProductRequest } from '$lib/actions'
 	import CustomSelect from '$lib/components/CustomSelect.svelte'
 	import NativeSelect from '$lib/components/NativeSelect.svelte'
-	import type { ActionData } from './$types'
-	import { enhance } from '$app/forms'
-	import editFeedbackIcon from '$assets/shared/icon-edit-feedback.svg'
-	import arrowLeftIcon from '$assets/shared/icon-arrow-left.svg'
-	import { addProductRequest } from '$lib/actions'
-	import type { SubmitFunction } from '@sveltejs/kit'
-	import type ProductRequest from '$types/ProductRequest'
 	import { productRequests } from '$lib/stores'
-	import { page } from '$app/stores'
+	import type ProductRequest from '$types/ProductRequest'
+	import type { SubmitFunction } from '@sveltejs/kit'
 	import { onDestroy } from 'svelte/internal'
+	import type { ActionData } from './$types'
 
 	let categoryOptions = [
 		{ label: 'Feature', value: 'feature' },
@@ -38,10 +38,21 @@
 
 	onDestroy(unsubscribe)
 
-	const handleAddProductRequest: SubmitFunction = ({ data }) => {
+	const handleEditProductRequest: SubmitFunction = ({ data }) => {
 		return async ({ result, update }) => {
 			if (result.status === 303) {
-				addProductRequest(data)
+				editProductRequest(data)
+				console.log(productRequest)
+			}
+			update()
+		}
+	}
+
+	// TODO fix this function on csr as it currently crashes when redirecting to home screen
+	const handleDeleteProductRequest: SubmitFunction = () => {
+		return async ({ result, update }) => {
+			if (result.status === 303) {
+				deleteProductRequest($page.params.id)
 			}
 			update()
 		}
@@ -59,12 +70,12 @@
 		<img
 			src={editFeedbackIcon}
 			alt=""
-			class="absolute w-10 h-10 bg-purple-200 rounded-full md:w-14 md:h-14 -top-6"
+			class="absolute w-10 h-10 bg-purple-200 rounded-full md:w-14 md:h-14 -top-5"
 		/>
 		<h1 class="mb-6 text-lg font-bold text-gray-500 md:text-2xl">
 			Editing '{productRequest.title}'
 		</h1>
-		<form action="?/editProductRequest" method="post">
+		<form action="?/edit" method="post" use:enhance={handleEditProductRequest}>
 			<fieldset class="mb-6">
 				<label
 					for="title"
@@ -102,16 +113,20 @@
 				<label for="category" class="block mb-4 text-xs md:text-[14px] text-gray-400"
 					>Choose a category for your feedback</label
 				>
-				<!-- {#if browser} -->
-				<!-- <CustomSelect options={categoryOptions} selected={productRequest.category} /> -->
-				<!-- {:else} -->
-				<NativeSelect
-					options={categoryOptions}
-					{form}
-					selected={productRequest.category}
-					property="category"
-				/>
-				<!-- {/if} -->
+				{#if browser}
+					<CustomSelect
+						options={categoryOptions}
+						selected={categoryOptions.find((option) => option.value === productRequest.category)}
+						property="category"
+					/>
+				{:else}
+					<NativeSelect
+						options={categoryOptions}
+						{form}
+						selected={productRequest.category}
+						property="category"
+					/>
+				{/if}
 			</fieldset>
 
 			<fieldset class="mb-6">
@@ -123,16 +138,20 @@
 				<label for="status" class="block mb-4 text-xs md:text-[14px] text-gray-400"
 					>Include any specific comments on what should be improved, added, etc.</label
 				>
-				<!-- {#if browser} -->
-				<!-- <CustomSelect options={statusOptions} selected={productRequest.status} /> -->
-				<!-- {:else} -->
-				<NativeSelect
-					options={statusOptions}
-					{form}
-					selected={productRequest.status}
-					property="status"
-				/>
-				<!-- {/if} -->
+				{#if browser}
+					<CustomSelect
+						options={statusOptions}
+						selected={statusOptions.find((option) => option.value === productRequest.status)}
+						property="status"
+					/>
+				{:else}
+					<NativeSelect
+						options={statusOptions}
+						{form}
+						selected={productRequest.status}
+						property="status"
+					/>
+				{/if}
 			</fieldset>
 
 			<fieldset class="mb-10 md:mb-8">
@@ -161,18 +180,25 @@
 				{/if}
 			</fieldset>
 
-			<div class="flex flex-col gap-4 md:flex-row-reverse ">
+			<div class="flex flex-col gap-4 mb-4 md:flex-row-reverse">
 				<button
 					type="submit"
 					class="px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-purple-200 button whitespace-nowrap"
-					>Add Feedback</button
+					>Save Changes</button
 				>
-				<button
-					type="reset"
-					class="px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-gray-500 button whitespace-nowrap"
-					>Cancel</button
+				<a
+					href="/"
+					class="text-center px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-gray-500 button whitespace-nowrap"
+					>Cancel</a
 				>
 			</div>
+		</form>
+		<form method="post" action="?/delete" use:enhance={handleDeleteProductRequest}>
+			<button
+				type="submit"
+				class="w-full px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-red-100 button whitespace-nowrap"
+				>Delete</button
+			>
 		</form>
 	</div>
 </main>

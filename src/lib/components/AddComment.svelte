@@ -36,7 +36,7 @@
 		{/if}
 		<button
 			type="submit"
-			class="px-4 py-2 text-xs leading-6 bg-purple-200 md:px-6 md:py-3 button whitespace-nowrap"
+			class="px-4 py-2 text-xs bg-purple-200 leading-6 md:px-6 md:py-3 button whitespace-nowrap"
 			>Post Comment</button
 		>
 	</div>
