@@ -58,8 +58,8 @@ export const actions: Actions = {
 		if (hasErrors(errors)) {
 			return fail(400, { data: { title, category, description }, errors: errors })
 		} else {
-			addProductRequest(data)
-			throw redirect(303, '/')
+			const id = addProductRequest(data)
+			throw redirect(303, `/product-request/${id}`)
 		}
 	}
 }

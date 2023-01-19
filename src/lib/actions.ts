@@ -48,6 +48,7 @@ export const addProductRequest = (data: FormData) => {
 		current.push(newRequest)
 		return current
 	})
+	return newRequest.id
 }
 
 export const updateSort = (sort: Sort) => {

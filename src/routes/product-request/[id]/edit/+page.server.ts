@@ -21,6 +21,7 @@ export const actions: Actions = {
 	},
 	edit: async ({ request }) => {
 		const data = await request.formData()
+		const id = data.get('id')
 		const title = data.get('title')
 		const category = data.get('category')
 		const status = data.get('status')
@@ -63,7 +64,7 @@ export const actions: Actions = {
 			return fail(400, { data: { title, category, status, description }, errors: errors })
 		} else {
 			editProductRequest(data)
-			throw redirect(303, '/')
+			throw redirect(303, `/product-request/${id}`)
 		}
 	}
 }

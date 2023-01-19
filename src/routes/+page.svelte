@@ -4,7 +4,7 @@
 	import ProductRequestOverview from '$lib/components/ProductRequestOverview.svelte'
 	import Filters from '$components/Filters.svelte'
 	import HeaderBadge from '$components/HeaderBadge.svelte'
-	import Roadmap from '$lib/components/Roadmap.svelte'
+	import RoadmapOverview from '$lib/components/RoadmapOverview.svelte'
 	import EmptyRequests from '$lib/components/EmptyRequests.svelte'
 	import { filters, productRequests } from '$lib/stores'
 	import { filterProductRequests } from '$lib/utils/filterProductRequests'
@@ -28,7 +28,7 @@
 		>
 			<HeaderBadge />
 			<Filters />
-			<Roadmap />
+			<RoadmapOverview />
 		</div>
 
 		<div class="lg:w-full">

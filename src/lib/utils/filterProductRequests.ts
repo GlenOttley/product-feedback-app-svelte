@@ -1,3 +1,4 @@
+import type { Status } from '$types/ProductRequest'
 import type { Filters } from '$lib/stores'
 import type ProductRequest from '$lib/types/ProductRequest'
 import getCommentsLength from './getCommentsLength'
@@ -8,6 +9,10 @@ function compareUpvotes(a: ProductRequest, b: ProductRequest) {
 
 function compareComments(a: ProductRequest, b: ProductRequest) {
 	return getCommentsLength(b.comments) - getCommentsLength(a.comments)
+}
+
+export const filterByStatus = (productRequests: ProductRequest[], status: Status) => {
+	return productRequests.filter((request) => request.status === status)
 }
 
 export const filterProductRequests = (productRequests: ProductRequest[], filters: Filters) => {

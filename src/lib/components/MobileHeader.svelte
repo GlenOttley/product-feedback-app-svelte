@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
 	import iconHamburger from '$assets/shared/mobile/icon-hamburger.svg'
 	import iconClose from '$assets/shared/mobile/icon-close.svg'
 	import { onMount } from 'svelte'
 	import { horizontalSlide } from '$lib/utils/transitions'
 	import { fade } from 'svelte/transition'
 	import Filters from './Filters.svelte'
-	import Roadmap from './Roadmap.svelte'
+	import RoadmapOverview from './RoadmapOverview.svelte'
+	import type { PageData } from '../../routes/$types'
 
 	// TODO fix issue with nav opening automatically when this menuOpen=true
 	// try using tailwind peer/group methods to show/hide the nav
@@ -20,7 +21,7 @@
 	/**
 	 * @param {HTMLInputElement} node
 	 */
-	function enhance(node, options = {}) {
+	function enhance(node: HTMLInputElement, options = {}) {
 		const { classname } = { ...defaults, ...options }
 
 		node.classList.add(classname)
@@ -48,7 +49,7 @@
 					class="absolute bg-gray-100 w-[271px] right-0 h-screen container py-6 flex flex-col gap-6"
 				>
 					<Filters />
-					<Roadmap />
+					<RoadmapOverview />
 				</div>
 			</nav>
 		{/if}

@@ -8,6 +8,7 @@
 	import arrowLeftIcon from '$assets/shared/icon-arrow-left.svg'
 	import { addProductRequest } from '$lib/actions'
 	import type { SubmitFunction } from '@sveltejs/kit'
+	import { goto } from '$app/navigation'
 
 	let categoryOptions = [
 		{ label: 'Feature', value: 'feature' },
@@ -22,9 +23,11 @@
 	const handleAddProductRequest: SubmitFunction = ({ data }) => {
 		return async ({ result, update }) => {
 			if (result.status === 303) {
-				addProductRequest(data)
+				const id = addProductRequest(data)
+				goto(`/product-request/${id}`)
+			} else {
+				update()
 			}
-			update()
 		}
 	}
 </script>
