@@ -9,7 +9,11 @@
 	import { addProductRequest } from '$lib/actions'
 	import type { SubmitFunction } from '@sveltejs/kit'
 	import { goto } from '$app/navigation'
+	import { afterNavigate } from '$app/navigation'
 
+	export let form: ActionData
+
+	let previousPage = '/'
 	let categoryOptions = [
 		{ label: 'Feature', value: 'feature' },
 		{ label: 'UI', value: 'UI' },
@@ -18,7 +22,9 @@
 		{ label: 'Bug', value: 'bug' }
 	]
 
-	export let form: ActionData
+	afterNavigate(({ from }) => {
+		previousPage = from?.url.pathname || previousPage
+	})
 
 	const handleAddProductRequest: SubmitFunction = ({ data }) => {
 		return async ({ result, update }) => {
@@ -33,7 +39,10 @@
 </script>
 
 <main class="container mt-6">
-	<a href="/" class="flex items-center gap-4 text-xs md:text-[14px] font-bold text-gray-400 mb-14">
+	<a
+		href={previousPage}
+		class="flex items-center gap-4 text-xs md:text-[14px] font-bold text-gray-400 mb-14"
+	>
 		<img src={arrowLeftIcon} alt="" />
 		Go Back</a
 	>
@@ -128,7 +137,7 @@
 					>Add Feedback</button
 				>
 				<a
-					href="/"
+					href={previousPage}
 					class="text-center px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-gray-500 button whitespace-nowrap"
 					>Cancel</a
 				>

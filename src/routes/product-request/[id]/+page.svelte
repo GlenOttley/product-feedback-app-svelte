@@ -8,9 +8,15 @@
 	import { page } from '$app/stores'
 	import { onDestroy } from 'svelte/internal'
 	import AddComment from '$components/AddComment.svelte'
+	import { afterNavigate } from '$app/navigation'
 
+	let previousPage = '/'
 	let productRequest: ProductRequest
 	let commentsLength: number
+
+	afterNavigate(({ from }) => {
+		previousPage = from?.url.pathname || previousPage
+	})
 
 	const unsubscribe = productRequests.subscribe((current) => {
 		productRequest = current.find((request) => request.id === $page.params.id) as ProductRequest
@@ -23,7 +29,7 @@
 {#if productRequest}
 	<div class="container mt-6">
 		<div class="flex justify-between mb-6 ">
-			<a href="/" class="flex items-center gap-4 text-xs font-bold text-gray-400">
+			<a href={previousPage} class="flex items-center gap-4 text-xs font-bold text-gray-400">
 				<img src={ArrowLeftIcon} alt="" />
 				Go Back
 			</a>

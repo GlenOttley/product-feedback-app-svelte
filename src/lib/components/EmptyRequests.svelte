@@ -17,7 +17,8 @@
 		Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to
 		improve our app.
 	</p>
-	<a href="/add-feedback" class="px-4 py-2 text-xs bg-purple-200 leading-6 button whitespace-nowrap"
-		>+ Add Feedback</a
+	<a
+		href="/product-request/new"
+		class="px-4 py-2 text-xs bg-purple-200 leading-6 button whitespace-nowrap">+ Add Feedback</a
 	>
 </div>

@@ -23,7 +23,7 @@
 			<div class="items-center hidden gap-4 md:flex">
 				<img src={suggestionsIcon} alt="" />
 				<h3 class="text-lg text-white font-bold tracking-[-0.25px]">
-					{productRequests.length} Suggestions
+					{$productRequests.length} Suggestions
 				</h3>
 			</div>
 

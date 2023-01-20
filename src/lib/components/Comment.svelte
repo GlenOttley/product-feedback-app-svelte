@@ -81,6 +81,7 @@
 		<input type="hidden" name="productRequestId" value={$page.params.id} />
 		<input type="hidden" name="commentId" value={parentCommentId} />
 		<input type="hidden" name="replyingTo" value={user.username} />
+		<!-- TODO fix layout of reply box/charcount/button -->
 		<div class="flex items-center justify-between">
 			{#if browser}
 				<p class="text-xs text-gray-400 md:text-sm">{charactersLeft} Characters left</p>
