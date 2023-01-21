@@ -8,6 +8,7 @@
 	import RoadmapOverview from './RoadmapOverview.svelte'
 	import { browser } from '$app/environment'
 
+	// TODO fix menu opening automatically in when CSR is disabled
 	let menuOpen = true
 
 	onMount(() => (menuOpen = false))

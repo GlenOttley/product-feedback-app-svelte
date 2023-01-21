@@ -61,6 +61,7 @@
 		bind:checked={showReplyForm}
 	/>
 
+	<!-- TODO add transition to text box appearing / dissapearing -->
 	<form
 		method="post"
 		action="?/addReply"

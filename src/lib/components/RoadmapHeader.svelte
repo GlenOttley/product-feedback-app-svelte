@@ -12,7 +12,7 @@
 				</a>
 				<h1 class="text-lg text-white font-bold">Roadmap</h1>
 			</div>
-			<a href="/product-request/new" class="-purple"> + Add Feedback</a>
+			<a href="/product-request/new" class="button--purple"> + Add Feedback</a>
 		</div>
 	</div>
 </header>
