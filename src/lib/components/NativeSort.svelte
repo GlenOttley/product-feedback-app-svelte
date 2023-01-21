@@ -12,9 +12,7 @@
 		{/each}
 	</select>
 
-	<button
-		type="submit"
-		class="px-4 py-2 text-xs bg-blue-400 rounded-l-none leading-6 button whitespace-nowrap"
+	<button type="submit" class="button--blue rounded-l-none"
 		><img src={searchIcon} alt="" class="w-3 min-w-[12px]" /></button
 	>
 </form>

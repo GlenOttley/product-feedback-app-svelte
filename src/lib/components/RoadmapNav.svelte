@@ -13,6 +13,7 @@
         {status.slug === pageStatus ? 'text-gray-500' : 'text-gray-300'}"
 					>{status.title} ({status.productRequests.length})</a
 				>
+				<!-- TODO make this bottom border element transition -->
 				{#if status.slug === pageStatus}
 					<span class="h-1 w-full bg-{status.color}" />
 				{:else}

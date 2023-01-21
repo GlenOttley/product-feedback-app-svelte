@@ -32,6 +32,7 @@
 	export let form: ActionData
 
 	let productRequest: ProductRequest
+	let showDeleteModal: boolean = false
 
 	const unsubscribe = productRequests.subscribe((current) => {
 		productRequest = current.find((request) => request.id === $page.params.id) as ProductRequest
@@ -62,13 +63,13 @@
 	<main class="container mt-6">
 		<a
 			href="/"
-			class="flex items-center gap-4 text-xs md:text-[14px] font-bold text-gray-400 mb-14"
+			class="flex items-center gap-4 text-xs md:text-[14px] font-bold text-gray-400 mb-14 hover:underline"
 		>
 			<img src={arrowLeftIcon} alt="" />
 			Go Back</a
 		>
 		<div
-			class="p-6 pt-11 bg-white rounded-[10px] tracking-[-0.25px] relative md:py-[52px] md:px-[42px]"
+			class="p-6 pt-11 bg-white rounded-lg tracking-[-0.25px] relative md:py-[52px] md:px-[42px]"
 		>
 			<img
 				src={editFeedbackIcon}
@@ -97,12 +98,12 @@
 						class="bg-gray-100 rounded-[5px] py-3 px-6 placeholder:text-xs placeholder:text-[#8C92B3]
           text-gray-500 text-xs md:text-[15px] w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1  
             {form && Object.keys(form.errors.title).length
-							? 'ring-1 !ring-red-100 focus-within:!ring-blue-400 hover:!ring-blue-400'
+							? 'ring-1 !ring-red-200 focus-within:!ring-blue-400 hover:!ring-blue-400'
 							: ''}"
 					/>
 					{#if form && Object.keys(form.errors.title).length}
 						{#each Object.values(form.errors.title) as error}
-							<p class="block pt-1 text-xs md:text-[14px] text-red-100">{error}</p>
+							<p class="block pt-1 text-xs md:text-[14px] text-red-200">{error}</p>
 						{/each}
 					{/if}
 				</fieldset>
@@ -173,45 +174,71 @@
 						class="bg-gray-100 rounded-[5px] py-3 px-6 placeholder:text-xs placeholder:text-[#8C92B3] 
           text-gray-500 text-xs md:text-[15px] w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1  
           {form && Object.keys(form.errors.description).length
-							? 'ring-1 !ring-red-100 focus-within:!ring-blue-400 hover:!ring-blue-400'
+							? 'ring-1 !ring-red-200 focus-within:!ring-blue-400 hover:!ring-blue-400'
 							: ''}">{form?.data.description ?? productRequest.description}</textarea
 					>
 					{#if form?.errors.description}
 						{#each Object.values(form.errors.description) as error}
-							<p class="block pt-1 text-xs md:text-[14px] text-red-100">{error}</p>
+							<p class="block pt-1 text-xs md:text-[14px] text-red-200">{error}</p>
 						{/each}
 					{/if}
 				</fieldset>
 
 				<div class="flex flex-col gap-4 mb-4 md:flex-row-reverse">
-					<button
-						type="submit"
-						class="px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-purple-200 button whitespace-nowrap"
-						>Save Changes</button
-					>
-					<a
-						href="/"
-						class="text-center px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-gray-500 button whitespace-nowrap"
-						>Cancel</a
-					>
-					<button
+					<button type="submit" class="button--purple">Save Changes</button>
+					<a href="/" class="button--gray">Cancel</a>
+					<label role="button" for="delete" class="button--red md:ml-0 md:mr-auto">Delete</label>
+					<input
+						id="delete"
+						type="checkbox"
+						class="sr-only peer/open"
+						bind:checked={showDeleteModal}
+					/>
+					{#if showDeleteModal}
+						<!-- TODO close modal on click outside -->
+						<div
+							class="hidden peer-checked/open:block peer-checked/close:hidden fixed z-10 left-0 top-0 
+            w-full h-full overflow-auto bg-black bg-opacity-60 pt-12"
+						>
+							<div class="container md:max-w-3xl">
+								<div
+									class="bg-white mx-auto mt-[5%] mb-[15%] rounded-lg p-6 md:py-[52px] md:px-[42px]"
+								>
+									<h2 class="mb-6 text-lg font-bold text-gray-500 md:text-2xl">Confirm Deletion</h2>
+									<p class="mb-4 text-xs md:text-[14px] text-gray-400">
+										Are you sure you wish to delete "<span class="italic"
+											>{productRequest.title}</span
+										>"?
+									</p>
+									<div class="flex justify-end gap-2 md:gap-4">
+										<a
+											on:click|preventDefault={() => (showDeleteModal = false)}
+											href="/product-request/{productRequest.id}"
+											class="button--gray leading-normal">Cancel</a
+										>
+										<button
+											on:click={() => {
+												deleteProductRequest($page.params.id)
+												goto('/')
+											}}
+											formaction="?/delete"
+											class="button--red  leading-normal">Delete</button
+										>
+									</div>
+								</div>
+							</div>
+						</div>
+					{/if}
+				</div>
+			</form>
+			<!-- <button
 						on:click={() => {
 							deleteProductRequest($page.params.id)
 							goto('/')
 						}}
 						formaction="?/delete"
-						class="px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-red-100 button md:ml-0 md:mr-auto"
-						>Delete</button
-					>
-				</div>
-			</form>
-			<!-- <form method="post" action="?/delete" use:enhance={handleDeleteProductRequest}>
-				<button
-					type="submit"
-					class="w-full px-4 py-2 md:px-6 md:py-3 text-xs md:text-[14px] leading-6 bg-red-100 button whitespace-nowrap md:w-auto"
-					>Delete</button
-				>
-			</form> -->
+						class="button--red md:ml-0 md:mr-auto">Delete</button
+					> -->
 		</div>
 	</main>
 {/if}

@@ -13,15 +13,15 @@
 	}
 </script>
 
-<aside class="container py-6 bg-white rounded-[10px]">
+<aside class="container py-6 bg-white rounded-lg">
 	<form method="post" use:enhance={submitUpdateFilters} class="flex flex-wrap gap-x-2 gap-y-[14px]">
 		{#each filterValues as filterValue}
 			<button
 				formaction="/?/updateFilters&category={filterValue}"
-				class="rounded-[10px] leading-none font-semibold  py-2 px-4 text-xs capitalize 
+				class="rounded-lg leading-none font-semibold py-2 px-4 text-xs capitalize 
         {$filters.category === filterValue
 					? 'bg-blue-400 text-white'
-					: 'bg-gray-200 text-blue-400'}">{filterValue}</button
+					: 'bg-gray-200 text-blue-400 hover:bg-blue-100'}">{filterValue}</button
 			>
 		{/each}
 	</form>

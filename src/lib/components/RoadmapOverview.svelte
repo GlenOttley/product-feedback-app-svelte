@@ -17,10 +17,12 @@
 	]
 </script>
 
-<aside class="container py-6  bg-white rounded-[10px]">
+<aside class="container py-6  bg-white rounded-lg">
 	<div class="flex items-center justify-between mb-6">
 		<h3 class="text-lg font-bold text-gray-500 tracking-[-0.25px]">Roadmap</h3>
-		<a href="/roadmap" class="text-xs font-semibold text-blue-400 underline">View</a>
+		<a href="/roadmap" class="text-xs font-semibold text-blue-400 underline hover:text-blue-300"
+			>View</a
+		>
 	</div>
 	<div class="flex flex-col gap-4 md:gap-2">
 		{#each statusValues as statusValue}

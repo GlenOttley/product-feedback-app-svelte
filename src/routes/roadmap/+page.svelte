@@ -36,7 +36,7 @@
 <RoadmapHeader />
 <main class="md:hidden ">
 	<RoadmapNav {statusObj} {pageStatus} />
-	<div class="container pt-6">
+	<div class="pt-6 container">
 		{#each Object.values(statusObj) as status}
 			{#if status.slug === pageStatus}
 				<RoadmapColumn status={statusObj[pageStatus]} />

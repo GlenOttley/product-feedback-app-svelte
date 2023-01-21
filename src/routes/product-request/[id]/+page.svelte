@@ -29,23 +29,21 @@
 {#if productRequest}
 	<div class="container mt-6">
 		<div class="flex justify-between mb-6 ">
-			<a href={previousPage} class="flex items-center gap-4 text-xs font-bold text-gray-400">
+			<a
+				href={previousPage}
+				class="flex items-center gap-4 text-xs font-bold text-gray-400 hover:underline"
+			>
 				<img src={ArrowLeftIcon} alt="" />
 				Go Back
 			</a>
-			{#if productRequest.user?.username === $currentUser.username}
-				<a
-					href="./{productRequest.id}/edit"
-					class="rounded-[10px] bg-blue-400 text-white text-xs font-bold py-2 px-4 md:px-6 md:py-3"
-				>
-					Edit Feedback</a
-				>
-			{/if}
+			<!-- {#if productRequest.user?.username === $currentUser.username} -->
+			<a href="./{productRequest.id}/edit" class="button--blue"> Edit Feedback</a>
+			<!-- {/if} -->
 		</div>
 		<div class="mb-6">
 			<ProductRequestOverview {productRequest} />
 		</div>
-		<div class="bg-white rounded-[10px] container py-6 mb-6 md:px-8">
+		<div class="bg-white rounded-lg container py-6 mb-6 md:px-8">
 			<h3 class="text-lg font-bold text-gray-500">
 				{commentsLength} Comments
 			</h3>
@@ -61,7 +59,7 @@
 			{/each}
 		</div>
 
-		<div class="bg-white rounded-[10px] container py-6 mb-6 md:px-8">
+		<div class="bg-white rounded-lg container py-6 mb-6 md:px-8">
 			<AddComment />
 		</div>
 	</div>

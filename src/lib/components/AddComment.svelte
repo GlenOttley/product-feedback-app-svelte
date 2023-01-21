@@ -21,7 +21,7 @@
 		name="content"
 		id="content"
 		placeholder="Type your comment here"
-		rows="2"
+		rows="3"
 		required
 		{maxlength}
 		bind:value={comment}
@@ -34,10 +34,6 @@
 		{:else}
 			<p class="text-xs text-gray-400 md:text-sm">{maxlength} Characters max</p>
 		{/if}
-		<button
-			type="submit"
-			class="px-4 py-2 text-xs bg-purple-200 leading-6 md:px-6 md:py-3 button whitespace-nowrap"
-			>Post Comment</button
-		>
+		<button type="submit" class="button--purple  ">Post Comment</button>
 	</div>
 </form>

@@ -19,7 +19,6 @@ export const actions: Actions = {
 			updateSort(sort)
 		}
 	},
-	// TODO fix upvote function - no longer works with csr enabled
 	upvoteRequest: async ({ request, url }) => {
 		const redirectTo = url.searchParams.get('redirectTo')
 		const data = await request.formData()

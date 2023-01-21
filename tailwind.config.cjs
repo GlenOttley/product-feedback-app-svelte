@@ -26,7 +26,8 @@ module.exports = {
 					100: '#f49f85'
 				},
 				red: {
-					100: '#D73737'
+					100: '#E98888',
+					200: '#D73737'
 				}
 			},
 			fontFamily: {
@@ -34,6 +35,9 @@ module.exports = {
 			},
 			screens: {
 				xs: '375px'
+			},
+			borderRadius: {
+				lg: '10px'
 			}
 		},
 		fontSize: {

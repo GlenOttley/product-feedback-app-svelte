@@ -2,7 +2,7 @@
 	import noRequestsImage from '$assets/suggestions/illustration-empty.svg'
 </script>
 
-<div class="container bg-white rounded-[10px] flex flex-col justify-center items-center py-[76px]">
+<div class="container bg-white rounded-lg flex flex-col justify-center items-center py-[76px]">
 	<img
 		src={noRequestsImage}
 		alt="animated detective with magnifying glass"
@@ -17,8 +17,5 @@
 		Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to
 		improve our app.
 	</p>
-	<a
-		href="/product-request/new"
-		class="px-4 py-2 text-xs bg-purple-200 leading-6 button whitespace-nowrap">+ Add Feedback</a
-	>
+	<a href="/product-request/new" class="button--purple">+ Add Feedback</a>
 </div>

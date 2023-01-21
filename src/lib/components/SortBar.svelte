@@ -17,7 +17,7 @@
 	]
 </script>
 
-<div class="bg-gray-600 md:rounded-[10px] mb-8">
+<div class="bg-gray-600 md:rounded-lg mb-8">
 	<div class="container flex justify-between py-2 md:py-6 lg:py-[14px]">
 		<div class="flex justify-between md:gap-[38px]">
 			<div class="items-center hidden gap-4 md:flex">
@@ -34,9 +34,7 @@
 			{/if}
 		</div>
 
-		<a
-			href="/product-request/new"
-			class="px-4 py-2 text-xs bg-purple-200 leading-6 button whitespace-nowrap"
+		<a href="/product-request/new" class="button--purple"
 			><span class="sm:hidden">+ Add</span>
 			<span class="hidden sm:inline">+ Add Feedback</span></a
 		>

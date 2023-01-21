@@ -52,7 +52,7 @@
 	</div>
 
 	<label for="reply-toggle--comment_{id}" class="cursor-pointer reply-link"
-		><p class="text-xs font-semibold text-blue-400">Reply</p></label
+		><p class="text-xs font-semibold text-blue-400 hover:underline">Reply</p></label
 	>
 	<input
 		id="reply-toggle--comment_{id}"
@@ -71,7 +71,7 @@
 			name="content"
 			id="reply"
 			placeholder="Type your reply here"
-			rows="2"
+			rows="3"
 			required
 			{maxlength}
 			bind:value={commentContent}
@@ -81,18 +81,18 @@
 		<input type="hidden" name="productRequestId" value={$page.params.id} />
 		<input type="hidden" name="commentId" value={parentCommentId} />
 		<input type="hidden" name="replyingTo" value={user.username} />
-		<!-- TODO fix layout of reply box/charcount/button -->
-		<div class="flex items-center justify-between">
+		<div
+			class="flex items-center justify-between md:flex-col-reverse 
+      md:items-stretch md:justify-center md:h-full md:gap-2 md:min-w-[122px]"
+		>
 			{#if browser}
-				<p class="text-xs text-gray-400 md:text-sm">{charactersLeft} Characters left</p>
+				<p class="text-xs text-gray-400 md:text-sm whitespace-nowrap">
+					{charactersLeft} Characters left
+				</p>
 			{:else}
-				<p class="text-xs text-gray-400 md:text-sm">{maxlength} Characters max</p>
+				<p class="text-xs text-gray-400 md:text-sm whitespace-nowrap">{maxlength} Characters max</p>
 			{/if}
-			<button
-				type="submit"
-				class="px-4 py-2 text-xs bg-purple-200 leading-6 button whitespace-nowrap"
-				>Post Reply</button
-			>
+			<button type="submit" class="button--purple">Post Reply</button>
 		</div>
 	</form>
 

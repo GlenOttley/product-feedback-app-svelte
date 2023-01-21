@@ -5,7 +5,7 @@
 	export let status
 </script>
 
-<div in:fly={{ x: 200, duration: 400 }}>
+<div class="-translate-x-0" in:fly={{ x: 400, duration: 400 }}>
 	<h2 class="mb-1 text-lg font-bold text-gray-500 md:text-[14px]">
 		{status.title}
 		({status.productRequests.length})

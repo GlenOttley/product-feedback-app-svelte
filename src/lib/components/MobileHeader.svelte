@@ -6,11 +6,9 @@
 	import { fade } from 'svelte/transition'
 	import Filters from './Filters.svelte'
 	import RoadmapOverview from './RoadmapOverview.svelte'
-	import type { PageData } from '../../routes/$types'
+	import { browser } from '$app/environment'
 
-	// TODO fix issue with nav opening automatically when this menuOpen=true
-	// try using tailwind peer/group methods to show/hide the nav
-	let menuOpen = false
+	let menuOpen = true
 
 	onMount(() => (menuOpen = false))
 
@@ -35,14 +33,17 @@
 			<h2 class="text-xs tracking-normal text-white">Feedback Board</h2>
 		</header>
 		<label for="toggle" class="cursor-pointer"
-			><img src={menuOpen ? iconClose : iconHamburger} alt="menu" /></label
+			><img
+				src={!browser ? iconHamburger : menuOpen ? iconClose : iconHamburger}
+				alt="menu"
+			/></label
 		>
-		<input id="toggle" type="checkbox" class="sr-only" bind:checked={menuOpen} use:enhance />
+		<input id="toggle" type="checkbox" class="sr-only peer" bind:checked={menuOpen} use:enhance />
 
 		{#if menuOpen}
 			<nav
 				transition:fade
-				class="nav fixed top-[72px] right-0 w-full h-full bg-black bg-opacity-60 z-50"
+				class="nav fixed top-[72px] right-0 w-full h-full bg-black bg-opacity-60 z-50 hidden peer-checked:block "
 			>
 				<div
 					transition:horizontalSlide={{ axis: 'x', duration: 800 }}
@@ -56,7 +57,7 @@
 	</div>
 </div>
 
-<style>
+<!-- <style>
 	#toggle ~ nav {
 		display: none;
 	}
@@ -64,4 +65,4 @@
 	#toggle:checked ~ nav {
 		display: block;
 	}
-</style>
+</style> -->

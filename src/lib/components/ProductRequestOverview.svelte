@@ -25,7 +25,7 @@
 	}
 </script>
 
-<article class="bg-white rounded-[10px] p-6 md:py-7 md:px-8">
+<article class="bg-white rounded-lg p-6 md:py-7 md:px-8">
 	<div class="grid">
 		<div class="mb-2 title md:mb-1">
 			<a
@@ -38,7 +38,7 @@
 		</div>
 		<div class="mb-5 category md:mb-0">
 			<span
-				class="py-2 px-4 text-xs text-blue-400 capitalize bg-gray-200 font-semibold rounded-[10px]"
+				class="py-2 px-4 text-xs text-blue-400 capitalize bg-gray-200 font-semibold rounded-lg"
 				role="status"
 				aria-label="This request has a status of {category}">{category}</span
 			>
@@ -51,7 +51,7 @@
 			>
 				<input type="hidden" name="id" value={id} />
 				<button
-					class={`z-10 py-2 px-4 text-xs font-semibold rounded-[10px] gap-2 flex items-center max-w-fit md:flex-col md:px-2 md:py-3 hover:bg-blue-100 min-w-[40px] 
+					class={`z-10 py-2 px-4 text-xs font-semibold rounded-lg gap-2 flex items-center max-w-fit md:flex-col md:px-2 md:py-3 hover:bg-blue-100 min-w-[40px] 
           ${upvoted ? 'bg-blue-400 text-white' : 'bg-gray-200 text-gray-500'}`}
 					aria-label={upvoted ? 'Remove your upvote from this request' : 'Upvote this request'}
 				>
