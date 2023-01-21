@@ -31,7 +31,7 @@
 		<div class="flex justify-between mb-6 ">
 			<a
 				href={previousPage}
-				class="flex items-center text-xs font-bold text-gray-400 gap-4 hover:underline"
+				class="flex items-center gap-4 text-xs font-bold text-gray-400 hover:underline"
 			>
 				<img src={ArrowLeftIcon} alt="" />
 				Go Back

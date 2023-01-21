@@ -19,7 +19,7 @@
 	</div>
 	<div class="lg:container lg:flex lg:gap-[30px] lg:mt-[94px]">
 		<div
-			class="hidden container mt-14 md:grid grid-cols-3 gap-[10px] mb-10 lg:flex lg:flex-col lg:max-w-[255px] lg:m-0 lg:p-0 "
+			class="hidden container mt-14 md:grid grid-cols-3 gap-6 mb-10 lg:flex lg:flex-col lg:max-w-[255px] lg:m-0 lg:p-0 "
 		>
 			<HeaderBadge />
 			<Filters />

@@ -4,6 +4,7 @@
 	import NativeSort from '$lib/components/NativeSort.svelte'
 	import { filters, productRequests } from '$lib/stores'
 	import suggestionsIcon from '$assets/suggestions/icon-suggestions.svg'
+	import { filterProductRequests } from '$lib/utils/filterProductRequests'
 
 	let sortOptions = [
 		{ label: 'most upvotes', value: 'mostUpvotes', selected: $filters.sort === 'mostUpvotes' },
@@ -23,7 +24,7 @@
 			<div class="items-center hidden gap-4 md:flex">
 				<img src={suggestionsIcon} alt="" />
 				<h3 class="text-lg text-white font-bold tracking-[-0.25px]">
-					{$productRequests.length} Suggestions
+					{filterProductRequests($productRequests, $filters).length} Suggestions
 				</h3>
 			</div>
 
