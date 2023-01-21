@@ -72,12 +72,12 @@
 			name="content"
 			id="reply"
 			placeholder="Type your reply here"
-			rows="3"
+			rows="2"
 			required
 			{maxlength}
 			bind:value={commentContent}
-			class="bg-gray-100 rounded-[5px] py-3 px-6 placeholder:text-xs placeholder:text-[#8C92B3] 
-    text-gray-500 text-xs md:text-[15px] w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1"
+			class="bg-gray-100 rounded-[5px] py-3 px-6 placeholder:text-xs md:placeholder:text-sm placeholder:text-[#8C92B3] 
+    text-gray-500 text-xs md:text-sm w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1"
 		/>
 		<input type="hidden" name="productRequestId" value={$page.params.id} />
 		<input type="hidden" name="commentId" value={parentCommentId} />

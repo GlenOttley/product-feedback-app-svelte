@@ -1,17 +1,13 @@
 <script lang="ts">
 	import iconHamburger from '$assets/shared/mobile/icon-hamburger.svg'
 	import iconClose from '$assets/shared/mobile/icon-close.svg'
-	import { onMount } from 'svelte'
 	import { horizontalSlide } from '$lib/utils/transitions'
 	import { fade } from 'svelte/transition'
 	import Filters from './Filters.svelte'
 	import RoadmapOverview from './RoadmapOverview.svelte'
 	import { browser } from '$app/environment'
 
-	// TODO fix menu opening automatically in when CSR is disabled
-	let menuOpen = true
-
-	onMount(() => (menuOpen = false))
+	let menuOpen = false
 
 	const defaults = {
 		classname: 'js'
@@ -41,7 +37,7 @@
 		>
 		<input id="toggle" type="checkbox" class="sr-only peer" bind:checked={menuOpen} use:enhance />
 
-		{#if menuOpen}
+		{#if menuOpen || !browser}
 			<nav
 				transition:fade
 				class="nav fixed top-[72px] right-0 w-full h-full bg-black bg-opacity-60 z-50 hidden peer-checked:block "
@@ -57,13 +53,3 @@
 		{/if}
 	</div>
 </div>
-
-<!-- <style>
-	#toggle ~ nav {
-		display: none;
-	}
-
-	#toggle:checked ~ nav {
-		display: block;
-	}
-</style> -->

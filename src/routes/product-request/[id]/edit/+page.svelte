@@ -184,7 +184,7 @@
 					{/if}
 				</fieldset>
 
-				<div class="flex flex-col gap-4 mb-4 md:flex-row-reverse">
+				<div class="flex flex-col mb-4 gap-4 md:flex-row-reverse">
 					<button type="submit" class="button--purple">Save Changes</button>
 					<a href="/" class="button--gray">Cancel</a>
 					<label role="button" for="delete" class="button--red md:ml-0 md:mr-auto">Delete</label>
@@ -197,8 +197,8 @@
 					{#if showDeleteModal}
 						<!-- TODO close modal on click outside -->
 						<div
-							class="hidden peer-checked/open:block peer-checked/close:hidden fixed z-10 left-0 top-0 
-            w-full h-full overflow-auto bg-black bg-opacity-60 pt-12"
+							class="fixed top-0 left-0 z-10 hidden w-full h-full pt-12 overflow-auto bg-black peer-checked/open:block peer-checked/close:hidden 
+  bg-opacity-60"
 						>
 							<div class="container md:max-w-3xl">
 								<div
@@ -214,7 +214,7 @@
 										<a
 											on:click|preventDefault={() => (showDeleteModal = false)}
 											href="/product-request/{productRequest.id}"
-											class="button--gray leading-normal">Cancel</a
+											class="leading-normal button--gray">Cancel</a
 										>
 										<button
 											on:click={() => {
@@ -222,7 +222,7 @@
 												goto('/')
 											}}
 											formaction="?/delete"
-											class="button--red  leading-normal">Delete</button
+											class="leading-normal button--red ">Delete</button
 										>
 									</div>
 								</div>

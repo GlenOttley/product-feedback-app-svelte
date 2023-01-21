@@ -21,12 +21,12 @@
 		name="content"
 		id="content"
 		placeholder="Type your comment here"
-		rows="3"
+		rows="2"
 		required
 		{maxlength}
 		bind:value={comment}
-		class="bg-gray-100 rounded-[5px] py-3 px-6 placeholder:text-xs placeholder:text-[#8C92B3] 
-    text-gray-500 text-xs md:text-[15px] w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1"
+		class="bg-gray-100 rounded-[5px] py-3 px-6 placeholder:text-xs md:placeholder:text-sm placeholder:text-[#8C92B3] 
+    text-gray-500 text-xs md:text-sm w-full outline-none ring-blue-400 focus-within:ring-1 hover:ring-1"
 	/>
 	<div class="flex items-center justify-between">
 		{#if browser}
@@ -34,6 +34,6 @@
 		{:else}
 			<p class="text-xs text-gray-400 md:text-sm">{maxlength} Characters max</p>
 		{/if}
-		<button type="submit" class="button--purple  ">Post Comment</button>
+		<button type="submit" class="button--purple ">Post Comment</button>
 	</div>
 </form>

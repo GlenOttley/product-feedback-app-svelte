@@ -17,7 +17,7 @@
 	]
 </script>
 
-<aside class="container py-6  bg-white rounded-lg">
+<aside class="container py-6 bg-white rounded-lg ">
 	<div class="flex items-center justify-between mb-6">
 		<h3 class="text-lg font-bold text-gray-500 tracking-[-0.25px]">Roadmap</h3>
 		<a href="/roadmap" class="text-xs font-semibold text-blue-400 underline hover:text-blue-300"

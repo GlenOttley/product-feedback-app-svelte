@@ -14,21 +14,24 @@
 			slug: 'planned',
 			description: 'Ideas prioritized for research',
 			productRequests: filterByStatus($productRequests, 'planned'),
-			color: 'orange-100'
+			borderColor: 'border-orange-100',
+			bgColor: 'bg-orange-100'
 		},
 		'in-progress': {
 			title: 'In-Progress',
 			slug: 'in-progress',
 			description: 'Currently being developed',
 			productRequests: filterByStatus($productRequests, 'in-progress'),
-			color: 'purple-200'
+			borderColor: 'border-purple-200',
+			bgColor: 'bg-purple-200'
 		},
 		live: {
 			title: 'Live',
 			slug: 'live',
 			description: 'Released features',
 			productRequests: filterByStatus($productRequests, 'live'),
-			color: 'blue-200'
+			borderColor: 'border-blue-200',
+			bgColor: 'bg-blue-200'
 		}
 	}
 </script>
@@ -36,7 +39,7 @@
 <RoadmapHeader />
 <main class="md:hidden ">
 	<RoadmapNav {statusObj} {pageStatus} />
-	<div class="pt-6 container">
+	<div class="container pt-6">
 		{#each Object.values(statusObj) as status}
 			{#if status.slug === pageStatus}
 				<RoadmapColumn status={statusObj[pageStatus]} />

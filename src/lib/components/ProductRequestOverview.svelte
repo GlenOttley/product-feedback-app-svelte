@@ -25,7 +25,7 @@
 	}
 </script>
 
-<article class="bg-white rounded-lg p-6 md:py-7 md:px-8">
+<article class="p-6 bg-white rounded-lg md:py-7 md:px-8">
 	<div class="grid">
 		<div class="mb-2 title md:mb-1">
 			<a
@@ -38,7 +38,7 @@
 		</div>
 		<div class="mb-5 category md:mb-0">
 			<span
-				class="py-2 px-4 text-xs text-blue-400 capitalize bg-gray-200 font-semibold rounded-lg"
+				class="px-4 py-2 text-xs font-semibold text-blue-400 capitalize bg-gray-200 rounded-lg"
 				role="status"
 				aria-label="This request has a status of {category}">{category}</span
 			>

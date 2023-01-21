@@ -4,7 +4,7 @@
 </script>
 
 <nav class="relative border-b border-gray-300 ">
-	<ul class="container flex relative justify-between items-center">
+	<ul class="container relative flex items-center justify-between">
 		{#each Object.values(statusObj) as status}
 			<li class="flex flex-col w-full">
 				<a
@@ -15,9 +15,9 @@
 				>
 				<!-- TODO make this bottom border element transition -->
 				{#if status.slug === pageStatus}
-					<span class="h-1 w-full bg-{status.color}" />
+					<span class="h-1 w-full {status.bgColor}" />
 				{:else}
-					<span class="h-1 w-full bg-transparent" />
+					<span class="w-full h-1 bg-transparent" />
 				{/if}
 			</li>
 		{/each}

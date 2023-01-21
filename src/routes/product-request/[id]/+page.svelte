@@ -31,7 +31,7 @@
 		<div class="flex justify-between mb-6 ">
 			<a
 				href={previousPage}
-				class="flex items-center gap-4 text-xs font-bold text-gray-400 hover:underline"
+				class="flex items-center text-xs font-bold text-gray-400 gap-4 hover:underline"
 			>
 				<img src={ArrowLeftIcon} alt="" />
 				Go Back
@@ -43,7 +43,7 @@
 		<div class="mb-6">
 			<ProductRequestOverview {productRequest} />
 		</div>
-		<div class="bg-white rounded-lg container py-6 mb-6 md:px-8">
+		<div class="container py-6 mb-6 bg-white rounded-lg md:px-8">
 			<h3 class="text-lg font-bold text-gray-500">
 				{commentsLength} Comments
 			</h3>
@@ -59,7 +59,7 @@
 			{/each}
 		</div>
 
-		<div class="bg-white rounded-lg container py-6 mb-6 md:px-8">
+		<div class="container py-6 mb-6 bg-white rounded-lg md:px-8">
 			<AddComment />
 		</div>
 	</div>

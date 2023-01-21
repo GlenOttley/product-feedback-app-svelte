@@ -17,7 +17,7 @@
 	]
 </script>
 
-<div class="bg-gray-600 md:rounded-lg mb-8">
+<div class="mb-8 bg-gray-600 md:rounded-lg">
 	<div class="container flex justify-between py-2 md:py-6 lg:py-[14px]">
 		<div class="flex justify-between md:gap-[38px]">
 			<div class="items-center hidden gap-4 md:flex">

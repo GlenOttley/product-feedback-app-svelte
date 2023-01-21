@@ -10,7 +10,8 @@
 	import { page } from '$app/stores'
 
 	export let productRequest: ProductRequest
-	export let color: string
+	export let borderColor: string
+	export let bgColor: string
 
 	let { title, description, category, status, upvotes, comments, id, upvoted } = productRequest
 	const commentsLength = getCommentsLength(comments)
@@ -26,18 +27,15 @@
 	}
 </script>
 
-<article class="bg-white rounded-lg p-6   border-t-[6px] border-{color}">
+<article class="bg-white rounded-lg p-6 border-t-[6px] {borderColor}">
 	<div class="grid">
-		<div class="status mb-4">
-			<p class="text-xs text-gray-400  capitalize">
-				<span class="inline-block w-2 h-2 rounded-full bg-{color} mr-2 " />{status.replace(
-					'-',
-					' '
-				)}
+		<div class="mb-4 status">
+			<p class="text-xs text-gray-400 capitalize">
+				<span class="inline-block w-2 h-2 rounded-full mr-2 {bgColor}" />{status.replace('-', ' ')}
 			</p>
 		</div>
 		<div class="mb-2 title ">
-			<a href="/product-request/{id}" class="text-xs font-bold text-gray-500  hover:text-blue-400"
+			<a href="/product-request/{id}" class="text-xs font-bold text-gray-500 hover:text-blue-400"
 				>{title}</a
 			>
 		</div>
@@ -46,7 +44,7 @@
 		</div>
 		<div class="mb-5 category ">
 			<span
-				class="py-2 px-4 text-xs text-blue-400 capitalize bg-gray-200 font-semibold rounded-lg"
+				class="px-4 py-2 text-xs font-semibold text-blue-400 capitalize bg-gray-200 rounded-lg"
 				role="status"
 				aria-label="This request has a status of {category}">{category}</span
 			>
@@ -59,7 +57,7 @@
 			>
 				<input type="hidden" name="id" value={id} />
 				<button
-					class={`z-10 py-2 px-4 text-xs font-semibold rounded-lg gap-2 flex items-center max-w-fit    hover:bg-blue-100 min-w-[40px] 
+					class={`z-10 py-2 px-4 text-xs font-semibold rounded-lg gap-2 flex items-center max-w-fit hover:bg-blue-100 min-w-[40px] 
           ${upvoted ? 'bg-blue-400 text-white' : 'bg-gray-200 text-gray-500'}`}
 					aria-label={upvoted ? 'Remove your upvote from this request' : 'Upvote this request'}
 				>
@@ -70,7 +68,7 @@
 		</div>
 		<div class="comments">
 			<span
-				class="flex items-center justify-end py-2 text-xs font-semibold text-gray-500 gap-2 max-w-fit "
+				class="flex items-center justify-end gap-2 py-2 text-xs font-semibold text-gray-500 max-w-fit "
 				role="status"
 				aria-label="{comments.length} for this request"
 			>
