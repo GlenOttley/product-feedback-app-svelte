@@ -34,7 +34,10 @@ module.exports = {
 				sans: ['Jost', 'sans-serif']
 			},
 			screens: {
-				xs: '375px'
+				DEFAULT: '100%',
+				// xs: '375px',
+				md: '768px',
+				xl: '1158px'
 			},
 			borderRadius: {
 				lg: '10px'
@@ -51,7 +54,9 @@ module.exports = {
 		container: {
 			center: true,
 			padding: {
-				DEFAULT: '24px'
+				DEFAULT: '24px',
+				md: '40px',
+				xl: '24px'
 			}
 		}
 	},

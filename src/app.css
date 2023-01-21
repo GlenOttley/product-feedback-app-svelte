@@ -8,6 +8,7 @@
 	body {
 		@apply bg-gray-100;
 	}
+	/* TODO abstract commonly used text classes into body classes below */
 	.body-1 {
 		@apply text-base;
 	}
@@ -30,6 +31,6 @@
 		@apply button bg-red-200 hover:bg-red-100;
 	}
 	.button--gray {
-		@apply button bg-gray-500 hover:bg-gray-400;
+		@apply button bg-gray-500;
 	}
 }

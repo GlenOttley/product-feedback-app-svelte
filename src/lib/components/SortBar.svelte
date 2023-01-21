@@ -35,8 +35,8 @@
 		</div>
 
 		<a href="/product-request/new" class="button--purple"
-			><span class="sm:hidden">+ Add</span>
-			<span class="hidden sm:inline">+ Add Feedback</span></a
+			><span class="md:hidden">+ Add</span>
+			<span class="hidden md:inline">+ Add Feedback</span></a
 		>
 	</div>
 </div>
