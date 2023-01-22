@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
 	import { enhance } from '$app/forms'
-	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import arrowLeftIcon from '$assets/shared/icon-arrow-left.svg'
 	import editFeedbackIcon from '$assets/shared/icon-edit-feedback.svg'
@@ -13,6 +12,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit'
 	import { onDestroy } from 'svelte/internal'
 	import type { ActionData } from './$types'
+	import DeleteModal from '$components/DeleteModal.svelte'
 
 	let categoryOptions = [
 		{ label: 'Feature', value: 'feature' },
@@ -195,50 +195,10 @@
 						bind:checked={showDeleteModal}
 					/>
 					{#if showDeleteModal}
-						<!-- TODO close modal on click outside -->
-						<div
-							class="fixed top-0 left-0 z-10 hidden w-full h-full pt-12 overflow-auto bg-black peer-checked/open:block peer-checked/close:hidden 
-  bg-opacity-60"
-						>
-							<div class="container md:max-w-3xl">
-								<div
-									class="bg-white mx-auto mt-[5%] mb-[15%] rounded-lg p-6 md:py-[52px] md:px-[42px]"
-								>
-									<h2 class="mb-6 text-lg font-bold text-gray-500 md:text-2xl">Confirm Deletion</h2>
-									<p class="mb-4 text-xs md:text-[14px] text-gray-400">
-										Are you sure you wish to delete "<span class="italic"
-											>{productRequest.title}</span
-										>"?
-									</p>
-									<div class="flex justify-end gap-2 md:gap-4">
-										<a
-											on:click|preventDefault={() => (showDeleteModal = false)}
-											href="/product-request/{productRequest.id}"
-											class="leading-normal button--gray">Cancel</a
-										>
-										<button
-											on:click={() => {
-												deleteProductRequest($page.params.id)
-												goto('/')
-											}}
-											formaction="?/delete"
-											class="leading-normal button--red ">Delete</button
-										>
-									</div>
-								</div>
-							</div>
-						</div>
+						<DeleteModal on:closeModal={() => (showDeleteModal = false)} {productRequest} />
 					{/if}
 				</div>
 			</form>
-			<!-- <button
-						on:click={() => {
-							deleteProductRequest($page.params.id)
-							goto('/')
-						}}
-						formaction="?/delete"
-						class="button--red md:ml-0 md:mr-auto">Delete</button
-					> -->
 		</div>
 	</main>
 {/if}
